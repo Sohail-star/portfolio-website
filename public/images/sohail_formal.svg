@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <!-- Background studio glow -->
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#0B1F3F" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#06162D" stop-opacity="1" />
+      <stop offset="100%" stop-color="#020B1B" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Warm Olive Skin Tone Gradients matching Picsart photo -->
+    <radialGradient id="faceSkin" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#ECC4A8" />
+      <stop offset="45%" stop-color="#DCAB89" />
+      <stop offset="80%" stop-color="#C28B65" />
+      <stop offset="100%" stop-color="#A56E4A" />
+    </radialGradient>
+
+    <linearGradient id="foreheadSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E2B797" />
+      <stop offset="100%" stop-color="#ECC4A8" />
+    </linearGradient>
+
+    <linearGradient id="noseHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5D8C3" />
+      <stop offset="80%" stop-color="#ECC4A8" />
+      <stop offset="100%" stop-color="#DCAB89" />
+    </linearGradient>
+
+    <!-- Hair Tone Gradients (Voluminous dark wavy hair) -->
+    <linearGradient id="hairBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#374151" />
+      <stop offset="40%" stop-color="#1F2937" />
+      <stop offset="80%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Suit & Tie Gradients -->
+    <linearGradient id="suitFabric" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2430" />
+      <stop offset="50%" stop-color="#0F141C" />
+      <stop offset="100%" stop-color="#04060A" />
+    </linearGradient>
+
+    <linearGradient id="tieFabric" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="50%" stop-color="#2D3748" />
+      <stop offset="100%" stop-color="#0B0F19" />
+    </linearGradient>
+
+    <!-- Soft Rim Lighting Filter -->
+    <filter id="softRim" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="600" fill="url(#bgGlow)" />
+  <circle cx="300" cy="240" r="180" fill="#008CFF" opacity="0.08" filter="url(#softRim)" />
+
+  <!-- 1. BODY & FORMAL SUIT (from Picsart photo) -->
+  <g id="suitAndShirt">
+    <!-- Suit Shoulders and Torso -->
+    <path d="M120 600 L125 470 C140 435 210 395 240 390 L300 480 L360 390 C390 395 460 435 475 470 L480 600 Z" fill="url(#suitFabric)" />
+
+    <!-- White Shirt Collar & Chest Base -->
+    <polygon points="230,380 370,380 330,520 270,520" fill="#FFFFFF" />
+    <!-- Shirt shadow folds -->
+    <polygon points="255,420 280,480 275,520 260,520" fill="#E2E8F0" />
+    <polygon points="345,420 320,480 325,520 340,520" fill="#E2E8F0" />
+
+    <!-- Crisp White Collar Points (pointed down towards tie knot) -->
+    <!-- Left Collar Point -->
+    <polygon points="265,370 295,445 255,410 240,380" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+    <!-- Right Collar Point -->
+    <polygon points="335,370 305,445 345,410 360,380" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+
+    <!-- Black Tie (Classic knot & blade) -->
+    <!-- Knot -->
+    <polygon points="288,410 312,410 316,438 284,438" fill="url(#tieFabric)" />
+    <ellipse cx="300" cy="412" rx="13" ry="5" fill="#1F2937" />
+    <!-- Tie Blade -->
+    <polygon points="286,438 314,438 322,600 278,600" fill="url(#tieFabric)" />
+    <!-- Center dimple/crease of tie -->
+    <line x1="300" y1="425" x2="300" y2="580" stroke="#0B0F19" stroke-width="2" />
+    <line x1="301" y1="428" x2="301" y2="570" stroke="#4A5568" stroke-width="1" opacity="0.6" />
+
+    <!-- Black Suit Notch Lapels (Front Facing) -->
+    <!-- Left Lapel -->
+    <polygon points="230,390 275,480 235,530 200,430" fill="#0A0E17" stroke="#1F2937" stroke-width="1" />
+    <polygon points="230,390 260,425 210,430" fill="#131B2B" />
+    <!-- Right Lapel -->
+    <polygon points="370,390 325,480 365,530 400,430" fill="#0A0E17" stroke="#1F2937" stroke-width="1" />
+    <polygon points="370,390 340,425 390,430" fill="#131B2B" />
+  </g>
+
+  <!-- 2. NECK -->
+  <g id="neck">
+    <path d="M260 295 L260 385 C275 395 325 395 340 385 L340 295 Z" fill="#C28B65" />
+    <!-- Neck Center highlight -->
+    <path d="M280 300 L280 385 C290 388 310 388 320 385 L320 300 Z" fill="#DCAB89" />
+    <!-- Adam's Apple / shadow below chin -->
+    <path d="M275 320 Q300 335 325 320 Q300 340 275 320 Z" fill="#9B623E" opacity="0.6" />
+  </g>
+
+  <!-- 3. EARS (matching Picsart photo) -->
+  <g id="ears">
+    <!-- Left Ear -->
+    <path d="M225 220 C205 220 205 275 220 295 C228 300 232 295 230 280 C222 270 220 240 228 230 Z" fill="#DCAB89" stroke="#B87D56" stroke-width="1.5" />
+    <path d="M220 235 C215 245 215 265 222 275" stroke="#9B623E" stroke-width="2" fill="none" />
+    <!-- Right Ear -->
+    <path d="M375 220 C395 220 395 275 380 295 C372 300 368 295 370 280 C378 270 380 240 372 230 Z" fill="#DCAB89" stroke="#B87D56" stroke-width="1.5" />
+    <path d="M380 235 C385 245 385 265 378 275" stroke="#9B623E" stroke-width="2" fill="none" />
+  </g>
+
+  <!-- 4. HEAD & FACE STRUCTURE -->
+  <g id="face">
+    <!-- Base Head Oval Contour -->
+    <path d="M226 210 C224 280 245 350 300 355 C355 350 376 280 374 210 C370 145 230 145 226 210 Z" fill="url(#faceSkin)" />
+
+    <!-- Forehead Base -->
+    <path d="M230 180 C235 150 265 135 300 135 C335 135 365 150 370 180 C365 210 235 210 230 180 Z" fill="url(#foreheadSkin)" />
+
+    <!-- Cheeks & Jaw Structure -->
+    <ellipse cx="260" cy="255" rx="20" ry="30" fill="#E8B896" opacity="0.4" />
+    <ellipse cx="340" cy="255" rx="20" ry="30" fill="#E8B896" opacity="0.4" />
+    <!-- Chin Highlight -->
+    <ellipse cx="300" cy="335" rx="16" ry="12" fill="#E8B896" opacity="0.6" />
+
+    <!-- NOSE (Straight, well-proportioned) -->
+    <path d="M294 200 L294 265 C284 268 284 278 293 278 C298 278 302 278 307 278 C316 278 316 268 306 265 L306 200 Z" fill="url(#noseHighlight)" />
+    <!-- Nostril Shadows -->
+    <ellipse cx="288" cy="272" rx="4.5" ry="3" fill="#6B3F23" />
+    <ellipse cx="312" cy="272" rx="4.5" ry="3" fill="#6B3F23" />
+    <path d="M285 270 Q300 276 315 270" stroke="#854F2E" stroke-width="2" fill="none" />
+
+    <!-- EYES (Looking directly forward, authentic brown irises) -->
+    <!-- Left Eye -->
+    <g id="leftEye">
+      <path d="M252 218 Q272 210 292 218 Q272 230 252 218 Z" fill="#FFFFFF" stroke="#2D1C13" stroke-width="1.2" />
+      <ellipse cx="272" cy="218.5" rx="7.5" ry="7.5" fill="#3D2314" />
+      <circle cx="272" cy="218.5" r="4" fill="#0B0908" />
+      <!-- Catchlight sparkles -->
+      <circle cx="270" cy="216" r="1.8" fill="#FFFFFF" />
+      <circle cx="274" cy="221" r="0.9" fill="#FFFFFF" opacity="0.8" />
+      <!-- Eyelid crease -->
+      <path d="M254 212 Q272 206 290 212" stroke="#854F2E" stroke-width="1.5" fill="none" />
+    </g>
+
+    <!-- Right Eye -->
+    <g id="rightEye">
+      <path d="M308 218 Q328 210 348 218 Q328 230 308 218 Z" fill="#FFFFFF" stroke="#2D1C13" stroke-width="1.2" />
+      <ellipse cx="328" cy="218.5" rx="7.5" ry="7.5" fill="#3D2314" />
+      <circle cx="328" cy="218.5" r="4" fill="#0B0908" />
+      <!-- Catchlight sparkles -->
+      <circle cx="326" cy="216" r="1.8" fill="#FFFFFF" />
+      <circle cx="330" cy="221" r="0.9" fill="#FFFFFF" opacity="0.8" />
+      <!-- Eyelid crease -->
+      <path d="M310 212 Q328 206 346 212" stroke="#854F2E" stroke-width="1.5" fill="none" />
+    </g>
+
+    <!-- EYEBROWS (Strong, arched, masculine, matching photo) -->
+    <!-- Left Eyebrow -->
+    <path d="M246 204 Q268 193 294 200 Q272 198 248 206 Z" fill="#18181B" />
+    <!-- Right Eyebrow -->
+    <path d="M306 200 Q332 193 354 204 Q330 198 308 206 Z" fill="#18181B" />
+
+    <!-- LIPS (Natural defined shape matching Picsart photo) -->
+    <path d="M276 298 Q300 292 324 298 Q315 306 300 306 Q285 306 276 298 Z" fill="#B3665D" />
+    <path d="M278 299 Q300 304 322 299 Q312 316 300 316 Q288 316 278 299 Z" fill="#994D45" />
+    <line x1="275" y1="298" x2="325" y2="298" stroke="#5E2620" stroke-width="1.8" />
+
+    <!-- FACIAL HAIR (Exact beard, mustache, and soul patch from photo!) -->
+    <!-- 1. Mustache -->
+    <path d="M272 288 Q286 280 298 285 Q302 285 304 285 Q314 280 328 288 Q312 294 300 290 Q288 294 272 288 Z" fill="#18181B" opacity="0.95" />
+    <!-- 2. Distinctive Soul Patch below bottom lip (prominent in photo) -->
+    <polygon points="296,318 304,318 302,328 298,328" fill="#18181B" />
+    <ellipse cx="300" cy="324" rx="4" ry="5" fill="#18181B" />
+    <!-- 3. Neat Stubble & Beard along jawline & chin -->
+    <path d="M236 265 C240 310 265 352 300 354 C335 352 360 310 364 265 C360 275 350 340 300 344 C250 340 240 275 236 265 Z" fill="#18181B" opacity="0.9" />
+    <path d="M280 340 Q300 354 320 340 Q300 347 280 340 Z" fill="#111827" />
+  </g>
+
+  <!-- 5. STYLISH VOLUMINOUS WAVY HAIR (Brushed upwards & styled, from photo) -->
+  <g id="hair">
+    <!-- Base Hair Silhouette -->
+    <path d="M228 190 C218 140 240 85 285 75 C310 70 345 72 370 85 C400 102 410 140 395 185 C385 170 380 150 368 135 C350 120 320 125 300 130 C280 125 250 120 238 145 C230 160 228 175 228 190 Z" fill="url(#hairBase)" />
+
+    <!-- Wave Crests & Volume on Top -->
+    <path d="M260 85 C285 62 335 60 365 72 C375 76 390 90 385 105 C360 92 320 90 290 100 C275 105 265 95 260 85 Z" fill="#4B5563" />
+    
+    <!-- Flowing Hair Strands (layered waves from photo) -->
+    <path d="M270 95 Q300 80 335 88 Q360 95 375 110" stroke="#6B7280" stroke-width="4" stroke-linecap="round" fill="none" />
+    <path d="M280 110 Q310 95 340 102 Q365 110 370 125" stroke="#9CA3AF" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8" />
+    <path d="M255 115 Q285 95 315 102 Q345 110 355 130" stroke="#4B5563" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M295 75 Q325 70 355 78" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+
+    <!-- Left & Right Temple Tapers / Fades -->
+    <path d="M228 180 C226 155 234 140 244 135 C238 150 234 165 232 185 Z" fill="#1F2937" />
+    <path d="M372 180 C374 155 366 140 356 135 C362 150 366 165 368 185 Z" fill="#1F2937" />
+    
+    <!-- Sideburns -->
+    <path d="M228 195 L232 235 L227 238 L225 200 Z" fill="#18181B" />
+    <path d="M372 195 L368 235 L373 238 L375 200 Z" fill="#18181B" />
+  </g>
+</svg>

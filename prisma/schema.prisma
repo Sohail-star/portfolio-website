@@ -1,0 +1,109 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  admin
+}
+
+enum MessageStatus {
+  new
+  read
+  replied
+}
+
+enum SkillCategory {
+  frontend
+  backend
+  design
+  tools
+}
+
+enum ProjectCategory {
+  web
+  design
+  app
+  all
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(admin)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model Project {
+  id              String          @id @default(uuid())
+  title           String
+  slug            String          @unique
+  description     String
+  longDescription String?
+  imageUrl        String
+  technologies    String[]
+  category        ProjectCategory @default(web)
+  liveDemoUrl     String?
+  githubUrl       String?
+  featured        Boolean         @default(false)
+  published       Boolean         @default(true)
+  sortOrder       Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([category, published])
+  @@index([sortOrder])
+  @@map("projects")
+}
+
+model Skill {
+  id          String        @id @default(uuid())
+  name        String
+  category    SkillCategory
+  icon        String
+  proficiency Int?
+  featured    Boolean       @default(true)
+  sortOrder   Int           @default(0)
+
+  @@index([category])
+  @@index([sortOrder])
+  @@map("skills")
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  icon        String
+  features    String[]
+  sortOrder   Int      @default(0)
+
+  @@index([sortOrder])
+  @@map("services")
+}
+
+model ContactMessage {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    MessageStatus @default(new)
+  ipAddress String?
+  emailSent Boolean       @default(false)
+  createdAt DateTime      @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("contact_messages")
+}

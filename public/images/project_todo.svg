@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="todoBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#todoBg)" />
+  <rect x="140" y="30" width="520" height="390" rx="16" fill="#F8FAFC" stroke="#008CFF" stroke-opacity="0.3" stroke-width="2" />
+
+  <text x="180" y="80" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="24" fill="#0F172A">My Todo List</text>
+  <text x="180" y="105" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#64748B">3 of 5 tasks completed · Productive day!</text>
+
+  <!-- Input Field -->
+  <rect x="180" y="125" width="370" height="42" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" />
+  <text x="200" y="151" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#94A3B8">Add a new task...</text>
+  <rect x="560" y="125" width="60" height="42" rx="8" fill="#008CFF" />
+  <text x="590" y="151" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="16" fill="#FFFFFF" text-anchor="middle">+</text>
+
+  <!-- Todo Items -->
+  <!-- Item 1 completed -->
+  <g transform="translate(180, 185)">
+    <rect x="0" y="0" width="440" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <circle cx="28" cy="24" r="10" fill="#10B981" />
+    <path d="M23 24 L27 28 L34 20" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <text x="50" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#94A3B8" text-decoration="line-through">Build Mohammad Sohail portfolio</text>
+  </g>
+
+  <!-- Item 2 completed -->
+  <g transform="translate(180, 245)">
+    <rect x="0" y="0" width="440" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <circle cx="28" cy="24" r="10" fill="#10B981" />
+    <path d="M23 24 L27 28 L34 20" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <text x="50" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#94A3B8" text-decoration="line-through">Study React hooks &amp; state architecture</text>
+  </g>
+
+  <!-- Item 3 pending -->
+  <g transform="translate(180, 305)">
+    <rect x="0" y="0" width="440" height="48" rx="8" fill="#FFFFFF" stroke="#008CFF" stroke-width="1.5" />
+    <circle cx="28" cy="24" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
+    <text x="50" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="13" fill="#0F172A">Prepare SMIT web development exam</text>
+    <rect x="365" y="16" width="55" height="18" rx="9" fill="#EFF6FF" />
+    <text x="392" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="10" fill="#008CFF" text-anchor="middle">High</text>
+  </g>
+
+  <!-- Item 4 pending -->
+  <g transform="translate(180, 365)">
+    <rect x="0" y="0" width="440" height="42" rx="8" fill="#FFFFFF" stroke="#E2E8F0" />
+    <circle cx="28" cy="21" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
+    <text x="50" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#334155">Design new UI elements in Figma</text>
+  </g>
+</svg>

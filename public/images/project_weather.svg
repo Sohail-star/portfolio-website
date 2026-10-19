@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="60%" stop-color="#0369A1" />
+      <stop offset="100%" stop-color="#0C4A6E" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="60%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#skyGrad)" />
+  <rect x="25" y="25" width="750" height="400" rx="16" fill="#041E42" fill-opacity="0.6" stroke="#38BDF8" stroke-opacity="0.4" stroke-width="2" />
+
+  <!-- Weather App Header -->
+  <text x="60" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="16" fill="#FFFFFF">SkyCast Weather</text>
+  <rect x="520" y="52" width="220" height="28" rx="14" fill="#0F3260" />
+  <text x="540" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#BAE6FD">🔍 Search city (e.g. Peshawar)...</text>
+
+  <!-- Big Temp Display -->
+  <text x="70" y="180" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="64" fill="#FFFFFF">22°C</text>
+  <text x="70" y="215" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="18" fill="#38BDF8">Clear Sky &amp; Sunny</text>
+  <text x="70" y="240" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#E0F2FE">Peshawar, Pakistan · Humidity: 45% · Wind: 12 km/h</text>
+
+  <!-- Sun Graphic -->
+  <circle cx="620" cy="170" r="75" fill="url(#sunGlow)" />
+  <circle cx="620" cy="170" r="45" fill="#FBBF24" />
+
+  <!-- 4 Day Forecast Cards -->
+  <g transform="translate(60, 275)">
+    <rect x="0" y="0" width="150" height="110" rx="12" fill="#0B264A" stroke="#38BDF8" stroke-opacity="0.3" />
+    <text x="75" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#BAE6FD" text-anchor="middle">Monday</text>
+    <text x="75" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">24°C</text>
+    <text x="75" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#FBBF24" text-anchor="middle">Sunny</text>
+  </g>
+  <g transform="translate(230, 275)">
+    <rect x="0" y="0" width="150" height="110" rx="12" fill="#0B264A" stroke="#38BDF8" stroke-opacity="0.3" />
+    <text x="75" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#BAE6FD" text-anchor="middle">Tuesday</text>
+    <text x="75" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">21°C</text>
+    <text x="75" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#BAE6FD" text-anchor="middle">Partly Cloudy</text>
+  </g>
+  <g transform="translate(400, 275)">
+    <rect x="0" y="0" width="150" height="110" rx="12" fill="#0B264A" stroke="#38BDF8" stroke-opacity="0.3" />
+    <text x="75" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#BAE6FD" text-anchor="middle">Wednesday</text>
+    <text x="75" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">19°C</text>
+    <text x="75" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#93C5FD" text-anchor="middle">Light Rain</text>
+  </g>
+  <g transform="translate(570, 275)">
+    <rect x="0" y="0" width="150" height="110" rx="12" fill="#0B264A" stroke="#38BDF8" stroke-opacity="0.3" />
+    <text x="75" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#BAE6FD" text-anchor="middle">Thursday</text>
+    <text x="75" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">23°C</text>
+    <text x="75" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#FBBF24" text-anchor="middle">Clear Sky</text>
+  </g>
+</svg>

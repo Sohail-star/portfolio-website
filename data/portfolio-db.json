@@ -1,0 +1,199 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "name": "Mohammad Sohail",
+      "email": "sohailsk7882261@gmail.com",
+      "passwordHash": "84779362695ab01424627d19526bd5b1:7bc292a201c6ef8c0faa7eb1a003f75f9f59ec354b799ce8b771b360784fada818278086c3985d9d2d4688adbe6701c3883711f790d99234714122a4da1a77c7",
+      "role": "admin",
+      "createdAt": "2026-10-09T11:15:39.910Z",
+      "updatedAt": "2026-10-13T16:35:14.899Z"
+    }
+  ],
+  "projects": [],
+  "skills": [
+    {
+      "id": "sk-1",
+      "name": "HTML5",
+      "category": "frontend",
+      "icon": "html",
+      "proficiency": 95,
+      "featured": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "sk-2",
+      "name": "CSS3",
+      "category": "frontend",
+      "icon": "css",
+      "proficiency": 90,
+      "featured": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "sk-3",
+      "name": "JavaScript",
+      "category": "frontend",
+      "icon": "javascript",
+      "proficiency": 88,
+      "featured": true,
+      "sortOrder": 3
+    },
+    {
+      "id": "sk-4",
+      "name": "React",
+      "category": "frontend",
+      "icon": "react",
+      "proficiency": 85,
+      "featured": true,
+      "sortOrder": 4
+    },
+    {
+      "id": "sk-5",
+      "name": "Tailwind CSS",
+      "category": "frontend",
+      "icon": "tailwind",
+      "proficiency": 92,
+      "featured": true,
+      "sortOrder": 5
+    },
+    {
+      "id": "sk-6",
+      "name": "Node.js",
+      "category": "backend",
+      "icon": "nodejs",
+      "proficiency": 80,
+      "featured": true,
+      "sortOrder": 6
+    },
+    {
+      "id": "sk-7",
+      "name": "PostgreSQL",
+      "category": "backend",
+      "icon": "postgresql",
+      "proficiency": 75,
+      "featured": true,
+      "sortOrder": 7
+    },
+    {
+      "id": "sk-8",
+      "name": "Figma",
+      "category": "design",
+      "icon": "figma",
+      "proficiency": 85,
+      "featured": true,
+      "sortOrder": 8
+    },
+    {
+      "id": "sk-9",
+      "name": "Git & GitHub",
+      "category": "tools",
+      "icon": "git",
+      "proficiency": 82,
+      "featured": true,
+      "sortOrder": 9
+    },
+    {
+      "id": "sk-10",
+      "name": "UI/UX Design",
+      "category": "design",
+      "icon": "layout",
+      "proficiency": 80,
+      "featured": true,
+      "sortOrder": 10
+    },
+    {
+      "name": "Vibe",
+      "category": "frontend",
+      "icon": "code",
+      "proficiency": 85,
+      "featured": true,
+      "sortOrder": 11,
+      "id": "sk-1791911034129-xoyc"
+    }
+  ],
+  "services": [
+    {
+      "id": "srv-1",
+      "title": "Web Development",
+      "description": "Responsive and modern websites using latest technologies.",
+      "icon": "code",
+      "features": [
+        "React & Next.js SPAs",
+        "Full-stack Node/Express APIs",
+        "Tailwind CSS responsive design",
+        "Performance & SEO optimization"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "srv-2",
+      "title": "Graphic Design",
+      "description": "Logo, banner, social media posts and more.",
+      "icon": "palette",
+      "features": [
+        "Brand Identity & Monograms",
+        "Social Media Graphics",
+        "UI/UX Wireframes in Figma",
+        "Marketing collateral"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "srv-3",
+      "title": "Editing & Video",
+      "description": "Video editing, thumbnail design and content creation.",
+      "icon": "video",
+      "features": [
+        "Short-form video editing",
+        "High-CTR YouTube Thumbnails",
+        "Motion transitions",
+        "Color grading & audio clean-up"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "srv-4",
+      "title": "AI & Automation",
+      "description": "AI tools, automation and smart solutions.",
+      "icon": "bot",
+      "features": [
+        "LLM workflow integrations",
+        "Automated data pipelines",
+        "Custom prompt engineering",
+        "Productivity scripts"
+      ],
+      "sortOrder": 4
+    }
+  ],
+  "messages": [],
+  "reviews": [
+    {
+      "id": "rev-1792425387163-j6aj",
+      "name": "Sohail Khan",
+      "role": "23",
+      "quote": "hi ee",
+      "rating": 3,
+      "published": true,
+      "createdAt": "2026-10-19T15:56:27.163Z",
+      "updatedAt": "2026-10-19T15:56:27.163Z"
+    }
+  ],
+  "profile": {
+    "name": "Muhammad Sohail",
+    "title": "Web Developer",
+    "headline": "Hello, I'm Muhammad Sohail",
+    "bio": "I'm Muhammad Sohail, a Software Engineering student with a strong interest in web development, graphic design, editing and AI. I love turning ideas into real projects and continuously learning new technologies.",
+    "education": "BS Software Engineering",
+    "training": "Saylani Mass IT Training (SMIT) – Web Development",
+    "location": "Warsak Road, Peshawar, Pakistan",
+    "email": "Sohailsk7882261@gmail.com",
+    "phone": "0328 5490043",
+    "whatsappNumber": "+923285490043",
+    "githubUrl": "https://github.com/Sohail-star",
+    "linkedinUrl": "https://www.linkedin.com/in/muhammad-sohail-8a32102ab/",
+    "twitterUrl": "https://x.com",
+    "cvUrl": "/downloads/Mohammad_Sohail_Resume.pdf",
+    "portraitUrl": "/images/31.jpg"
+  }
+}
