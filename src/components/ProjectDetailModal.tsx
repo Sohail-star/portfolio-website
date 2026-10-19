@@ -25,20 +25,20 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
       <div
-        className="relative w-full max-w-2xl bg-[#06162D] border border-[#008CFF]/40 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-2xl bg-[#06162D] border border-[#008CFF]/40 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col min-w-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#008CFF]/20 bg-[#020B1B]/80">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00CFFF]" />
-            <h3 className="font-bold text-lg text-[#F8FAFC] truncate">{project.title}</h3>
+        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-[#008CFF]/20 bg-[#020B1B]/80 gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00CFFF] shrink-0" />
+            <h3 className="font-bold text-base sm:text-lg text-[#F8FAFC] truncate">{project.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#A9B9D0] hover:text-white hover:bg-[#0B1F3F] transition-colors"
+            className="p-1.5 rounded-lg text-[#A9B9D0] hover:text-white hover:bg-[#0B1F3F] transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
@@ -98,14 +98,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-[#008CFF]/20 bg-[#020B1B]/80 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="p-3.5 sm:p-5 border-t border-[#008CFF]/20 bg-[#020B1B]/80 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {project.liveDemoUrl && (
               <a
                 href={project.liveDemoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#008CFF] to-[#00CFFF] text-white text-xs font-semibold flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-[#008CFF]/30"
+                className="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#008CFF] to-[#00CFFF] text-white text-xs font-semibold flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-[#008CFF]/30"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>Live Demo</span>
@@ -116,7 +116,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-[#0B1F3F] border border-[#008CFF]/30 text-[#F8FAFC] text-xs font-semibold flex items-center gap-1.5 hover:border-[#00CFFF]"
+                className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#0B1F3F] border border-[#008CFF]/30 text-[#F8FAFC] text-xs font-semibold flex items-center gap-1.5 hover:border-[#00CFFF]"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>Source Code</span>
@@ -126,7 +126,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
 
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-[#A9B9D0] hover:text-white"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium text-[#A9B9D0] hover:text-white"
           >
             Close
           </button>

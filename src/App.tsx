@@ -145,12 +145,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020B1B] text-[#F8FAFC] selection:bg-[#008CFF]/30 selection:text-white relative">
+    <div className="min-h-screen bg-[#020B1B] text-[#F8FAFC] selection:bg-[#008CFF]/30 selection:text-white relative w-full overflow-x-hidden">
       {/* Top Navigation */}
       <Navbar profile={profile} onOpenAdmin={() => setAdminOpen(true)} />
 
       {/* Main Portfolio Sections */}
-      <main>
+      <main className="w-full overflow-x-hidden">
         {/* Hero Section */}
         <HeroSection profile={profile} />
 

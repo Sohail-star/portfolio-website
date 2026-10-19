@@ -61,15 +61,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-2 sm:gap-6 md:gap-8">
           {/* Brand Logo, Photo & Name */}
           <a
             href="#home"
-            className="flex items-center gap-3 group whitespace-nowrap shrink-0"
+            className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 max-w-[calc(100%-80px)] md:max-w-none"
           >
             {/* Brand Developer Portrait Photo Avatar */}
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden bg-gradient-to-br from-[#008CFF] to-[#00CFFF] p-[2px] shadow-[0_0_15px_rgba(0,163,255,0.4)] group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(0,207,255,0.7)] transition-all shrink-0">
+            <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden bg-gradient-to-br from-[#008CFF] to-[#00CFFF] p-[2px] shadow-[0_0_15px_rgba(0,163,255,0.4)] group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(0,207,255,0.7)] transition-all shrink-0">
               <div className="w-full h-full rounded-[9px] overflow-hidden bg-[#020B1B] relative flex items-center justify-center">
                 <img
                   src={profile?.portraitUrl || '/images/31.jpg'}
@@ -89,11 +89,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <span className="font-bold text-base sm:text-lg text-[#F8FAFC] tracking-tight group-hover:text-[#00CFFF] transition-colors leading-snug">
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="font-bold text-xs xs:text-sm sm:text-base md:text-lg text-[#F8FAFC] tracking-tight group-hover:text-[#00CFFF] transition-colors leading-snug truncate">
                 {profile?.name || 'Muhammad Sohail'}
               </span>
-              <span className="text-xs text-[#008CFF] font-medium tracking-wide">
+              <span className="text-[10px] xs:text-[11px] sm:text-xs text-[#008CFF] font-medium tracking-wide truncate">
                 {profile?.title || 'Web Developer'}
               </span>
             </div>
@@ -144,11 +144,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex md:hidden items-center gap-1 sm:gap-2 shrink-0">
             <button
               onClick={onOpenAdmin}
               title="Admin Control Panel"
-              className="p-2 text-[#A9B9D0] hover:text-[#00CFFF]"
+              className="p-2 text-[#A9B9D0] hover:text-[#00CFFF] rounded-lg hover:bg-[#06162D]"
+              aria-label="Admin Control Panel"
             >
               <Shield className="w-4 h-4" />
             </button>
@@ -157,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
               className="p-2 rounded-lg text-[#A9B9D0] hover:text-white hover:bg-[#06162D] focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-[#00CFFF]" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-[#00CFFF]" />}
             </button>
           </div>
         </div>
@@ -185,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
             })}
           </div>
 
-          <div className="pt-3 border-t border-[#008CFF]/15 flex items-center justify-between">
+          <div className="pt-3 border-t border-[#008CFF]/15 flex flex-wrap items-center justify-between gap-2.5">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -198,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, profile }) => {
             </button>
             <button
               onClick={() => handleLinkClick('#contact')}
-              className="px-5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#008CFF] to-[#00CFFF]"
+              className="px-4 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#008CFF] to-[#00CFFF] shrink-0"
             >
               Hire Me
             </button>

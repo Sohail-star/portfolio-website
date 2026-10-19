@@ -83,45 +83,45 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
     : null;
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative bg-[#020B1B]">
-      {/* Decorative gradient glow */}
-      <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#008CFF]/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+    <section id="contact" className="py-14 sm:py-16 md:py-28 relative bg-[#020B1B] overflow-hidden w-full isolate">
+      {/* Decorative gradient glow contained within viewport */}
+      <div className="absolute bottom-10 left-0 w-56 sm:w-96 h-56 sm:h-96 bg-[#008CFF]/10 rounded-full blur-[80px] sm:blur-[140px] pointer-events-none z-0 max-w-full" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12">
           {/* Left Column: Contact Info & Value Proposition */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 min-w-0">
             <div className="space-y-1">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
                 Contact
               </h2>
-              <p className="text-sm font-semibold text-[#008CFF] tracking-wide">
+              <p className="text-xs sm:text-sm font-semibold text-[#008CFF] tracking-wide">
                 Have a project in mind? Let's work together!
               </p>
             </div>
 
-            <p className="text-base text-[#A9B9D0] leading-relaxed">
+            <p className="text-xs sm:text-base text-[#A9B9D0] leading-relaxed">
               Whether you need a modern web application, frontend revamp, graphic design, or AI automation solutions, feel free to drop a message. I'm actively open to freelance projects and full-time opportunities.
             </p>
 
             {/* Quick Contact & Social Profile Cards */}
-            <div className="space-y-3 pt-2">
+            <div className="space-y-2.5 sm:space-y-3 pt-1">
               <a
                 href={`mailto:${profile.email}`}
-                className="p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/60 flex items-center justify-between gap-4 transition-all group"
+                className="p-3 sm:p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/60 flex items-center justify-between gap-2.5 sm:gap-4 transition-all group min-w-0 w-full"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#00CFFF] group-hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#00CFFF] group-hover:scale-105 transition-transform shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-[11px] text-[#A9B9D0]">Email Address</p>
-                    <p className="text-sm font-semibold text-[#F8FAFC] group-hover:text-[#00CFFF] transition-colors">
+                    <p className="text-xs sm:text-sm font-semibold text-[#F8FAFC] group-hover:text-[#00CFFF] transition-colors truncate">
                       {profile.email}
                     </p>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#00CFFF] opacity-60 group-hover:opacity-100 transition-all" />
+                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#00CFFF] opacity-60 group-hover:opacity-100 transition-all shrink-0" />
               </a>
 
               {whatsappUrl && (
@@ -129,20 +129,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#25D366] flex items-center justify-between gap-4 transition-all group"
+                  className="p-3 sm:p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#25D366] flex items-center justify-between gap-3 sm:gap-4 transition-all group min-w-0"
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#25D366] group-hover:scale-105 transition-transform">
+                  <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                    <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#25D366] group-hover:scale-105 transition-transform shrink-0">
                       <MessageCircle className="w-5 h-5" />
                     </div>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <p className="text-[11px] text-[#A9B9D0]">WhatsApp Direct</p>
-                      <p className="text-sm font-semibold text-[#F8FAFC] group-hover:text-[#25D366] transition-colors">
+                      <p className="text-xs sm:text-sm font-semibold text-[#F8FAFC] group-hover:text-[#25D366] transition-colors truncate">
                         {profile.phone || '0328 5490043'}
                       </p>
                     </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#25D366] opacity-60 group-hover:opacity-100 transition-all" />
+                  <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#25D366] opacity-60 group-hover:opacity-100 transition-all shrink-0" />
                 </a>
               )}
 
@@ -150,47 +150,47 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
                 href={profile.githubUrl || 'https://github.com/Sohail-star'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-white flex items-center justify-between gap-4 transition-all group"
+                className="p-3 sm:p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-white flex items-center justify-between gap-3 sm:gap-4 transition-all group min-w-0"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-white group-hover:scale-105 transition-transform shrink-0">
                     <Github className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-[11px] text-[#A9B9D0]">GitHub Profile</p>
-                    <p className="text-sm font-semibold text-[#F8FAFC] group-hover:text-white transition-colors">
+                    <p className="text-xs sm:text-sm font-semibold text-[#F8FAFC] group-hover:text-white transition-colors truncate">
                       github.com/Sohail-star
                     </p>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-white opacity-60 group-hover:opacity-100 transition-all" />
+                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-white opacity-60 group-hover:opacity-100 transition-all shrink-0" />
               </a>
 
               <a
                 href={profile.linkedinUrl || 'https://www.linkedin.com/in/muhammad-sohail-8a32102ab/'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#0A66C2] flex items-center justify-between gap-4 transition-all group"
+                className="p-3 sm:p-3.5 rounded-xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#0A66C2] flex items-center justify-between gap-3 sm:gap-4 transition-all group min-w-0"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#0A66C2] group-hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                  <div className="w-10 h-10 rounded-lg bg-[#0B1F3F] flex items-center justify-center text-[#0A66C2] group-hover:scale-105 transition-transform shrink-0">
                     <Linkedin className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-[11px] text-[#A9B9D0]">LinkedIn Profile</p>
-                    <p className="text-sm font-semibold text-[#F8FAFC] group-hover:text-[#0A66C2] transition-colors">
+                    <p className="text-xs sm:text-sm font-semibold text-[#F8FAFC] group-hover:text-[#0A66C2] transition-colors truncate">
                       Muhammad Sohail
                     </p>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#0A66C2] opacity-60 group-hover:opacity-100 transition-all" />
+                <ExternalLink className="w-4 h-4 text-[#A9B9D0] group-hover:text-[#0A66C2] opacity-60 group-hover:opacity-100 transition-all shrink-0" />
               </a>
             </div>
           </div>
 
           {/* Right Column: Full-Stack Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#06162D] border border-[#008CFF]/30 shadow-2xl shadow-black/40 relative">
+          <div className="lg:col-span-7 min-w-0">
+            <div className="p-4 sm:p-8 rounded-2xl bg-[#06162D] border border-[#008CFF]/30 shadow-2xl shadow-black/40 relative min-w-0">
               {/* Feedback messages */}
               {successMessage && (
                 <div className="mb-6 p-4 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-sm flex items-start gap-3 animate-fade-in">

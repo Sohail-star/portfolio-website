@@ -232,36 +232,36 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, profi
   };
 
   return (
-    <div className="resume-modal-overlay fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in print:p-0 print:bg-white">
+    <div className="resume-modal-overlay fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in print:p-0 print:bg-white">
       <div
-        className="resume-modal-container relative w-full max-w-4xl bg-[#06162D] border border-[#008CFF]/40 rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col print:border-none print:shadow-none print:max-h-none print:bg-white print:text-black"
+        className="resume-modal-container relative w-full max-w-4xl bg-[#06162D] border border-[#008CFF]/40 rounded-2xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col print:border-none print:shadow-none print:max-h-none print:bg-white print:text-black min-w-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#008CFF]/20 bg-[#020B1B]/90 print:hidden shrink-0">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-bold text-white text-xs">
+        <div className="flex items-center justify-between p-3 sm:p-5 border-b border-[#008CFF]/20 bg-[#020B1B]/90 print:hidden shrink-0 gap-2 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 flex-1">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-bold text-white text-xs shrink-0">
               CV
             </div>
-            <div>
-              <h3 className="font-bold text-base sm:text-lg text-[#F8FAFC]">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-bold text-xs sm:text-base md:text-lg text-[#F8FAFC] truncate">
                 Curriculum Vitae — {profile.name}
               </h3>
-              <p className="text-xs text-[#00CFFF]">Web Developer &amp; Software Engineering Student</p>
+              <p className="text-[10px] sm:text-xs text-[#00CFFF] truncate">Web Developer &amp; Software Engineering Student</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handlePrint}
               disabled={isPrinting}
-              className="px-3 py-1.5 rounded-lg bg-[#0B1F3F] border border-[#008CFF]/30 text-xs font-semibold text-[#F8FAFC] hover:border-[#00CFFF] flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+              className="px-2 sm:px-3 py-1.5 rounded-lg bg-[#0B1F3F] border border-[#008CFF]/30 text-xs font-semibold text-[#F8FAFC] hover:border-[#00CFFF] flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
               title="Print CV"
             >
               {isPrinting ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-[#00CFFF]" />
-                  <span>Preparing...</span>
+                  <span className="hidden sm:inline">Preparing...</span>
                 </>
               ) : (
                 <>
@@ -274,11 +274,11 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, profi
             <a
               href="/api/cv/download"
               download="Mohammad_Sohail_Resume.pdf"
-              className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#008CFF] to-[#00CFFF] text-white text-xs font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity cursor-pointer shadow-md shadow-[#008CFF]/30"
+              className="px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#008CFF] to-[#00CFFF] text-white text-xs font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity cursor-pointer shadow-md shadow-[#008CFF]/30"
               title="Download PDF"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download PDF</span>
+              <span className="hidden xs:inline">PDF</span>
             </a>
 
             <button
@@ -291,12 +291,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, profi
         </div>
 
         {/* Scrollable CV Body */}
-        <div id="resume-printable-area" className="overflow-y-auto p-6 sm:p-10 space-y-8 bg-[#041024] print:bg-white print:text-black print:p-8 print:overflow-visible print:h-auto">
+        <div id="resume-printable-area" className="overflow-y-auto p-3.5 sm:p-6 md:p-10 space-y-5 sm:space-y-8 bg-[#041024] print:bg-white print:text-black print:p-8 print:overflow-visible print:h-auto min-w-0">
           {/* 1. Header / Personal Info */}
-          <div className="border-b border-[#008CFF]/20 pb-6 print:border-gray-300">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 border-[#008CFF] bg-[#020B1B] shadow-lg shrink-0 print:border-gray-400">
+          <div className="border-b border-[#008CFF]/20 pb-5 sm:pb-6 print:border-gray-300 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-5 min-w-0">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 border-[#008CFF] bg-[#020B1B] shadow-lg shrink-0 print:border-gray-400">
                   <img
                     src={profile.portraitUrl || '/images/31.jpg'}
                     alt={profile.name}
@@ -306,38 +306,38 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, profi
                     }}
                   />
                 </div>
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight print:text-black">
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#F8FAFC] tracking-tight print:text-black truncate">
                     {profile.name}
                   </h1>
-                  <p className="text-sm sm:text-base font-semibold text-[#008CFF] mt-0.5 print:text-blue-600">
+                  <p className="text-xs sm:text-sm md:text-base font-semibold text-[#008CFF] mt-0.5 print:text-blue-600 truncate">
                     {profile.title} &bull; {profile.education}
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap sm:flex-col gap-2 sm:gap-1.5 text-xs text-[#A9B9D0] print:text-gray-700 sm:text-right">
-                <div className="flex items-center sm:justify-end gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-[#00CFFF] print:text-blue-600" />
-                  <a href={`mailto:${profile.email}`} className="hover:underline">{profile.email}</a>
+              <div className="flex flex-col sm:flex-col gap-1.5 text-xs text-[#A9B9D0] print:text-gray-700 sm:text-right min-w-0">
+                <div className="flex items-center sm:justify-end gap-1.5 min-w-0">
+                  <Mail className="w-3.5 h-3.5 text-[#00CFFF] print:text-blue-600 shrink-0" />
+                  <a href={`mailto:${profile.email}`} className="hover:underline break-all truncate max-w-full sm:max-w-none">{profile.email}</a>
                 </div>
                 <div className="flex items-center sm:justify-end gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#25D366] print:text-green-600" />
+                  <Phone className="w-3.5 h-3.5 text-[#25D366] print:text-green-600 shrink-0" />
                   <span>{profile.phone || '0328 5490043'}</span>
                 </div>
                 <div className="flex items-center sm:justify-end gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#008CFF] print:text-blue-600" />
-                  <span>{profile.location}</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#008CFF] print:text-blue-600 shrink-0" />
+                  <span className="truncate">{profile.location}</span>
                 </div>
-                <div className="flex items-center sm:justify-end gap-1.5">
-                  <Github className="w-3.5 h-3.5 text-white print:text-black" />
-                  <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <div className="flex items-center sm:justify-end gap-1.5 min-w-0">
+                  <Github className="w-3.5 h-3.5 text-white print:text-black shrink-0" />
+                  <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:underline truncate max-w-full sm:max-w-none">
                     github.com/Sohail-star
                   </a>
                 </div>
-                <div className="flex items-center sm:justify-end gap-1.5">
-                  <Linkedin className="w-3.5 h-3.5 text-[#0A66C2] print:text-blue-700" />
-                  <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <div className="flex items-center sm:justify-end gap-1.5 min-w-0">
+                  <Linkedin className="w-3.5 h-3.5 text-[#0A66C2] print:text-blue-700 shrink-0" />
+                  <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline truncate max-w-full sm:max-w-none">
                     linkedin.com/in/muhammad-sohail
                   </a>
                 </div>

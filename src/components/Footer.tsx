@@ -24,27 +24,27 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenAdmin }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#020713] border-t border-[#008CFF]/20 pt-16 pb-12 relative overflow-hidden">
+    <footer className="bg-[#020713] border-t border-[#008CFF]/20 pt-12 sm:pt-16 pb-8 sm:pb-12 relative overflow-hidden w-full isolate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#008CFF]/15">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 pb-8 sm:pb-12 border-b border-[#008CFF]/15">
           {/* Brand & Monogram */}
-          <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-extrabold text-white text-base tracking-wider shadow-lg shadow-[#008CFF]/20">
+          <div className="md:col-span-5 space-y-3.5 sm:space-y-4 min-w-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-extrabold text-white text-base tracking-wider shadow-lg shadow-[#008CFF]/20 shrink-0">
                 MS
               </div>
-              <div>
-                <span className="font-bold text-lg text-[#F8FAFC]">Mohammad Sohail</span>
-                <p className="text-xs text-[#008CFF] font-medium">Web Developer &amp; Tech Enthusiast</p>
+              <div className="min-w-0 flex-1">
+                <span className="font-bold text-base sm:text-lg text-[#F8FAFC] truncate block">Mohammad Sohail</span>
+                <p className="text-xs text-[#008CFF] font-medium truncate">Web Developer &amp; Tech Enthusiast</p>
               </div>
             </div>
 
-            <p className="text-sm text-[#A9B9D0] max-w-sm leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#A9B9D0] max-w-sm leading-relaxed">
               Computer Science student building responsive, modern websites and practical digital experiences with clean architecture and contemporary design.
             </p>
 
             {/* Social Links with Official Logos */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-1 flex-wrap">
               <a
                 href={profile.githubUrl || 'https://github.com/Sohail-star'}
                 target="_blank"
@@ -81,11 +81,11 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenAdmin }) => {
           </div>
 
           {/* Quick Links */}
-          <div className="md:col-span-4 space-y-4">
+          <div className="md:col-span-4 space-y-3 sm:space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#00CFFF]">
               Quick Navigation
             </h4>
-            <ul className="grid grid-cols-2 gap-2 text-sm text-[#A9B9D0]">
+            <ul className="grid grid-cols-2 gap-2 text-xs sm:text-sm text-[#A9B9D0]">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
@@ -100,11 +100,11 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenAdmin }) => {
           </div>
 
           {/* Admin & Location info */}
-          <div className="md:col-span-3 space-y-4">
+          <div className="md:col-span-3 space-y-3 sm:space-y-4 min-w-0">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#00CFFF]">
               Portfolio System
             </h4>
-            <p className="text-xs text-[#A9B9D0] leading-relaxed">
+            <p className="text-xs text-[#A9B9D0] leading-relaxed break-words">
               Based in {profile.location}. Fully responsive and powered by Express, TypeScript &amp; React.
             </p>
             <button
@@ -117,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenAdmin }) => {
         </div>
 
         {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A9B9D0]">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A9B9D0] text-center sm:text-left">
           <p>© {currentYear} Mohammad Sohail. All rights reserved.</p>
 
           <button

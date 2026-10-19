@@ -140,15 +140,15 @@ export const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-20 md:py-24 relative bg-[#020B1B]/80">
+    <section id="testimonials" className="py-14 sm:py-16 md:py-24 relative bg-[#020B1B]/80 overflow-hidden w-full isolate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header with "Add Feedback" button */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <div className="text-center sm:text-left space-y-1">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-12">
+          <div className="text-center sm:text-left space-y-1 min-w-0">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
               What People Say
             </h2>
-            <p className="text-sm font-semibold text-[#008CFF] tracking-wide">
+            <p className="text-xs sm:text-sm font-semibold text-[#008CFF] tracking-wide">
               Feedback from my clients, mentors, and peers
             </p>
           </div>
@@ -157,7 +157,7 @@ export const TestimonialsSection: React.FC = () => {
           <div className="flex justify-center sm:justify-end">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#008CFF] to-[#00CFFF] hover:from-[#00A3FF] hover:to-[#00D9FF] shadow-lg shadow-[#008CFF]/25 hover:shadow-[#008CFF]/45 hover:scale-[1.02] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#008CFF] to-[#00CFFF] hover:from-[#00A3FF] hover:to-[#00D9FF] shadow-lg shadow-[#008CFF]/25 hover:shadow-[#008CFF]/45 hover:scale-[1.02] transition-all cursor-pointer"
             >
               <MessageSquarePlus className="w-4 h-4" />
               <span>Leave a Review</span>
@@ -167,37 +167,37 @@ export const TestimonialsSection: React.FC = () => {
 
         {/* Testimonials Grid or Empty State */}
         {testimonials.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((item) => (
               <div
                 key={item.id}
-                className="p-6 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/50 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1 shadow-lg shadow-black/40 group"
+                className="p-4 sm:p-6 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/50 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1 shadow-lg shadow-black/40 group min-w-0"
               >
-                <div className="space-y-3">
+                <div className="space-y-2.5 sm:space-y-3 min-w-0">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1 text-amber-400">
                       {[...Array(item.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-amber-400" />
+                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400" />
                       ))}
                       {[...Array(5 - item.rating)].map((_, i) => (
-                        <Star key={i + item.rating} className="w-4 h-4 text-gray-600" />
+                        <Star key={i + item.rating} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
                       ))}
                     </div>
-                    <Quote className="w-6 h-6 text-[#008CFF]/40 group-hover:text-[#00CFFF]/70 transition-colors" />
+                    <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-[#008CFF]/40 group-hover:text-[#00CFFF]/70 transition-colors shrink-0" />
                   </div>
 
-                  <p className="text-sm text-[#A9B9D0] leading-relaxed italic">
+                  <p className="text-xs sm:text-sm text-[#A9B9D0] leading-relaxed italic break-words">
                     &ldquo;{item.quote}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#008CFF]/15 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-bold text-white text-xs shrink-0 shadow-md shadow-[#008CFF]/30">
+                <div className="pt-3.5 sm:pt-4 border-t border-[#008CFF]/15 flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#008CFF] to-[#00CFFF] flex items-center justify-center font-bold text-white text-xs shrink-0 shadow-md shadow-[#008CFF]/30">
                     {item.name.slice(0, 2).toUpperCase()}
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#F8FAFC]">{item.name}</h4>
-                    <p className="text-xs text-[#00CFFF]">{item.role}</p>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-xs sm:text-sm font-bold text-[#F8FAFC] truncate">{item.name}</h4>
+                    <p className="text-[11px] sm:text-xs text-[#00CFFF] truncate">{item.role}</p>
                   </div>
                 </div>
               </div>
@@ -223,9 +223,9 @@ export const TestimonialsSection: React.FC = () => {
 
       {/* Add Feedback / Review Modal Popup */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <div
-            className="relative w-full max-w-lg bg-[#06162D] border border-[#008CFF]/40 rounded-2xl p-6 sm:p-7 shadow-2xl overflow-hidden"
+            className="relative w-full max-w-lg bg-[#06162D] border border-[#008CFF]/40 rounded-2xl p-4 sm:p-7 shadow-2xl max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}

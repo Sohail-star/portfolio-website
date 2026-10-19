@@ -18,7 +18,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ phoneNumber,
   const whatsappUrl = `https://wa.me/${cleanNumber}?text=${chatMessage}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3">
       {/* Tooltip bubble on hover */}
       {showTooltip && (
         <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#06162D] border border-[#008CFF]/30 text-xs text-[#F8FAFC] shadow-xl animate-fade-in whitespace-nowrap">
@@ -40,10 +40,10 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ phoneNumber,
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         title="Chat with Mohammad Sohail on WhatsApp"
-        className="w-13 h-13 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-xl shadow-[#25D366]/40 hover:scale-110 active:scale-95 transition-all duration-300 relative group"
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-xl shadow-[#25D366]/40 hover:scale-110 active:scale-95 transition-all duration-300 relative group"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-7 h-7" />
+        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
         <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-[#020B1B] rounded-full" />
       </a>
     </div>

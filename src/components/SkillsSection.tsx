@@ -114,33 +114,33 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
   };
 
   return (
-    <section id="skills" className="py-20 md:py-28 relative bg-[#020B1B]">
+    <section id="skills" className="py-14 sm:py-16 md:py-28 relative bg-[#020B1B] overflow-hidden w-full isolate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center sm:text-left space-y-1 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
+        <div className="text-center sm:text-left space-y-1 mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#F8FAFC] tracking-tight">
             My Skills
           </h2>
-          <p className="text-sm font-semibold text-[#008CFF] tracking-wide">
+          <p className="text-xs sm:text-sm font-semibold text-[#008CFF] tracking-wide">
             Technologies I work with
           </p>
         </div>
 
         {/* Responsive Skill Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-4 md:gap-6">
           {skills.map((skill) => (
             <div
               key={skill.id}
-              className="group p-5 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/60 transition-all duration-300 hover:shadow-xl hover:shadow-[#008CFF]/15 flex flex-col items-center text-center justify-center gap-3 relative hover:-translate-y-1"
+              className="group p-3 sm:p-5 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/60 transition-all duration-300 hover:shadow-xl hover:shadow-[#008CFF]/15 flex flex-col items-center text-center justify-center gap-2 sm:gap-3 relative hover:-translate-y-1 min-w-0"
             >
               {renderSkillIcon(skill.icon, skill.name)}
 
-              <span className="font-semibold text-sm sm:text-base text-[#F8FAFC] group-hover:text-[#00CFFF] transition-colors">
+              <span className="font-semibold text-xs sm:text-sm md:text-base text-[#F8FAFC] group-hover:text-[#00CFFF] transition-colors truncate max-w-full px-1">
                 {skill.name}
               </span>
 
               {/* Optional proficiency meter bar */}
               {skill.proficiency && (
-                <div className="w-full bg-[#020B1B] rounded-full h-1.5 overflow-hidden mt-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                <div className="w-full bg-[#020B1B] rounded-full h-1.5 overflow-hidden mt-0.5 sm:mt-1 opacity-70 group-hover:opacity-100 transition-opacity">
                   <div
                     className="bg-gradient-to-r from-[#008CFF] to-[#00CFFF] h-full rounded-full transition-all duration-500"
                     style={{ width: `${skill.proficiency}%` }}

@@ -458,11 +458,11 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                 }}
               />
             </div>
-            <div>
-              <h2 className="text-base sm:text-lg font-bold text-[#F8FAFC]">
+            <div className="min-w-0">
+              <h2 className="text-xs sm:text-base md:text-lg font-bold text-[#F8FAFC] truncate max-w-[170px] xs:max-w-xs sm:max-w-none">
                 Muhammad Sohail Portfolio Management
               </h2>
-              <p className="text-[11px] text-[#00CFFF]">
+              <p className="text-[10px] sm:text-[11px] text-[#00CFFF] truncate">
                 {user ? `Logged in as ${user.email}` : 'Restricted Admin Access'}
               </p>
             </div>
@@ -552,12 +552,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({
           </div>
         ) : (
           /* AUTHENTICATED DASHBOARD */
-          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+          <div className="flex-1 flex flex-col md:flex-row overflow-hidden min-w-0">
             {/* Sidebar Navigation */}
-            <div className="w-full md:w-56 bg-[#020B1B] border-r border-[#008CFF]/20 p-3 space-y-1.5 shrink-0 flex md:flex-col overflow-x-auto md:overflow-visible">
+            <div className="w-full md:w-56 bg-[#020B1B] border-b md:border-b-0 md:border-r border-[#008CFF]/20 p-2 sm:p-3 gap-1.5 md:gap-0 md:space-y-1.5 shrink-0 flex md:flex-col overflow-x-auto md:overflow-visible">
               <button
                 onClick={() => setActiveTab('overview')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'overview'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'
@@ -569,13 +569,13 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               <button
                 onClick={() => setActiveTab('messages')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center justify-between gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'messages'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <Mail className="w-4 h-4" />
                   <span>Messages</span>
                 </div>
@@ -588,7 +588,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               <button
                 onClick={() => setActiveTab('projects')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'projects'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'
@@ -600,7 +600,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               <button
                 onClick={() => setActiveTab('skills')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'skills'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'
@@ -612,13 +612,13 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               <button
                 onClick={() => setActiveTab('reviews')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center justify-between gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'reviews'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <Star className="w-4 h-4" />
                   <span>Reviews</span>
                 </div>
@@ -631,7 +631,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               <button
                 onClick={() => setActiveTab('settings')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 md:shrink md:w-full flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                   activeTab === 'settings'
                     ? 'bg-[#06162D] text-[#00CFFF] border border-[#008CFF]/40'
                     : 'text-[#A9B9D0] hover:text-white hover:bg-[#06162D]/50'

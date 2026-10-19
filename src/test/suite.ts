@@ -114,6 +114,27 @@ async function runTests() {
     'Email service returns valid provider identifier'
   );
 
+  // 8. Mobile Responsiveness & Overflow Prevention Tests
+  console.log('\n7. Mobile Responsiveness & Viewport Tests:');
+  const indexHtml = fs.readFileSync(path.join(process.cwd(), 'index.html'), 'utf-8');
+  assert(indexHtml.includes('name="viewport"'), 'index.html has viewport meta tag');
+  assert(indexHtml.includes('width=device-width'), 'viewport specifies width=device-width');
+  assert(indexHtml.includes('initial-scale=1.0'), 'viewport specifies initial-scale=1.0');
+
+  const indexCss = fs.readFileSync(path.join(process.cwd(), 'src/index.css'), 'utf-8');
+  assert(indexCss.includes('box-sizing: border-box'), 'index.css applies global box-sizing: border-box reset');
+  assert(indexCss.includes('overflow-x: clip'), 'index.css configures overflow-x clipping to prevent horizontal scrollbars');
+  assert(indexCss.includes('max-width: 100%'), 'index.css constrains media elements from overflowing containers');
+
+  const heroTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/HeroSection.tsx'), 'utf-8');
+  assert(heroTsx.includes('isolate'), 'HeroSection establishes isolated stacking context to contain blur glows');
+
+  const aboutTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/AboutSection.tsx'), 'utf-8');
+  assert(aboutTsx.includes('flex-wrap'), 'AboutSection student badge row wraps on narrow viewports');
+
+  const testmTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/TestimonialsSection.tsx'), 'utf-8');
+  assert(testmTsx.includes('min-w-0 flex-1'), 'TestimonialsSection applies min-w-0 flex-1 to prevent role/name overflow');
+
   console.log(`\n========================================`);
   console.log(`Test Results: ${passed}/${total} tests passed!`);
   console.log(`========================================\n`);
