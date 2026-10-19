@@ -63,20 +63,26 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       }
     }
 
-    // 1. Dispatch email notification
-    let emailSent = false;
-    try {
-      const emailResult = await sendContactNotification({
-        name,
-        email,
-        phone,
-        subject,
-        message,
-        createdAt: new Date().toISOString(),
+    // 1. Dispatch email notification via Resend
+    const emailResult = await sendContactNotification({
+      name,
+      email,
+      phone,
+      subject,
+      message,
+      createdAt: new Date().toISOString(),
+      ipAddress: clientIp,
+    });
+
+    if (!emailResult.success) {
+      console.error('[Contact Submission] Email delivery failed:', emailResult.error);
+      res.status(502).json({
+        success: false,
+        error:
+          emailResult.error ||
+          'Email delivery failed. Please verify your message details or email directly at sohailsk7882261@gmail.com.',
       });
-      emailSent = emailResult.success;
-    } catch (mailErr) {
-      console.error('[Contact Email Warning]', mailErr);
+      return;
     }
 
     // 2. Persist message in database
@@ -87,15 +93,17 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       subject,
       message,
       ipAddress: clientIp,
-      emailSent,
+      emailSent: true,
     });
 
     res.status(201).json({
       success: true,
-      message: 'Thank you! Your message has been sent successfully. Mohammad Sohail will get back to you shortly.',
+      message: 'Thank you! Your message has been sent successfully to Mohammad Sohail.',
       data: {
         id: savedMessage.id,
         createdAt: savedMessage.createdAt,
+        provider: emailResult.provider,
+        messageId: emailResult.messageId,
       },
     });
   } catch (err) {

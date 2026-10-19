@@ -50,6 +50,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setSuccessMessage(null);
     setErrorMessage(null);
 

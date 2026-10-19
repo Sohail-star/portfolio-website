@@ -2,6 +2,35 @@ import { Project, Skill, Service, ContactMessage, ProfileInfo, AdminStats, AuthU
 
 const TOKEN_KEY = 'sohail_admin_jwt';
 
+// Safe JSON fetch wrapper that guards against HTML error pages and non-JSON payloads
+async function safeJsonFetch<T = any>(url: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(url, options);
+  const contentType = res.headers.get('content-type') || '';
+
+  if (!contentType.includes('application/json')) {
+    const rawText = await res.text().catch(() => '');
+    if (!res.ok) {
+      throw new Error(
+        `Server error (${res.status}): ${rawText.slice(0, 140) || res.statusText}`
+      );
+    }
+    throw new Error('Server returned an unexpected non-JSON response.');
+  }
+
+  let json: any;
+  try {
+    json = await res.json();
+  } catch (parseErr: any) {
+    throw new Error(parseErr?.message || 'Failed to parse JSON response from server');
+  }
+
+  if (!res.ok || json.success === false) {
+    throw new Error(json.error || json.message || `Request failed with status ${res.status}`);
+  }
+
+  return json;
+}
+
 export const api = {
   // Auth Token helpers
   getToken(): string | null {
@@ -38,23 +67,17 @@ export const api = {
 
   // Public Endpoints
   async getProfile(): Promise<{ profile: ProfileInfo; services: Service[] }> {
-    const res = await fetch('/api/profile');
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch profile');
+    const json = await safeJsonFetch('/api/profile');
     return json.data;
   },
 
   async getProjects(): Promise<Project[]> {
-    const res = await fetch('/api/projects');
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch projects');
+    const json = await safeJsonFetch('/api/projects');
     return json.data;
   },
 
   async getSkills(): Promise<Skill[]> {
-    const res = await fetch('/api/skills');
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch skills');
+    const json = await safeJsonFetch('/api/skills');
     return json.data;
   },
 
@@ -66,15 +89,11 @@ export const api = {
     message: string;
     honeypot?: string;
   }): Promise<{ message: string; id: string }> {
-    const res = await fetch('/api/contact', {
+    const json = await safeJsonFetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    const json = await res.json();
-    if (!json.success) {
-      throw new Error(json.error || 'Failed to send message');
-    }
     return { message: json.message, id: json.data?.id };
   },
 

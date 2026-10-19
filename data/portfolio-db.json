@@ -166,7 +166,56 @@
       "sortOrder": 4
     }
   ],
-  "messages": [],
+  "messages": [
+    {
+      "name": "Fatima Noor",
+      "email": "fatima.noor@example.com",
+      "phone": "+923001234567",
+      "subject": "React Portfolio Development",
+      "message": "Hello Sohail, I would like to inquire about building a modern portfolio web app.",
+      "ipAddress": "127.0.0.1",
+      "emailSent": true,
+      "id": "msg-1792436710766-i73r",
+      "status": "new",
+      "createdAt": "2026-10-19T19:05:10.766Z"
+    },
+    {
+      "name": "Fatima Noor",
+      "email": "fatima.noor@example.com",
+      "phone": "+923001234567",
+      "subject": "React Portfolio Development",
+      "message": "Hello Sohail, I would like to inquire about building a modern portfolio web app.",
+      "ipAddress": "127.0.0.1",
+      "emailSent": true,
+      "id": "msg-1792436700587-bdpv",
+      "status": "new",
+      "createdAt": "2026-10-19T19:05:00.587Z"
+    },
+    {
+      "name": "Fatima Noor",
+      "email": "fatima.noor@example.com",
+      "phone": "+923001234567",
+      "subject": "React Portfolio Development",
+      "message": "Hello Sohail, I would like to inquire about building a modern portfolio web app.",
+      "ipAddress": "127.0.0.1",
+      "emailSent": true,
+      "id": "msg-1792436678818-8w3t",
+      "status": "new",
+      "createdAt": "2026-10-19T19:04:38.818Z"
+    },
+    {
+      "name": "Fatima Noor",
+      "email": "fatima.noor@example.com",
+      "phone": "+923001234567",
+      "subject": "React Portfolio Development",
+      "message": "Hello Sohail, I would like to inquire about building a modern portfolio web app.",
+      "ipAddress": "127.0.0.1",
+      "emailSent": true,
+      "id": "msg-1792436655931-zkw4",
+      "status": "new",
+      "createdAt": "2026-10-19T19:04:15.931Z"
+    }
+  ],
   "reviews": [
     {
       "id": "rev-1792425387163-j6aj",

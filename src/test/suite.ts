@@ -94,6 +94,26 @@ async function runTests() {
   const magic = Buffer.from(pdfBytes.slice(0, 5)).toString('utf8');
   assert(magic === '%PDF-', 'CV PDF contains valid %PDF- magic header');
 
+  // 7. Resend Email Notification Flow Tests
+  console.log('\n6. Email Notification & Resend Integration Tests:');
+  const { sendContactNotification } = await import('../server/email');
+
+  const emailResult = await sendContactNotification({
+    name: 'Alex Johnson',
+    email: 'alex.johnson@example.com',
+    phone: '+1 555-0144',
+    subject: 'Web Application Development Inquiry',
+    message: 'We are looking to hire a frontend engineer to rebuild our corporate dashboard.',
+    createdAt: new Date().toISOString(),
+    ipAddress: '127.0.0.1',
+  });
+
+  assert(typeof emailResult.success === 'boolean', 'Email notification returns boolean success state');
+  assert(
+    emailResult.provider === 'resend' || emailResult.provider === 'simulated_dev',
+    'Email service returns valid provider identifier'
+  );
+
   console.log(`\n========================================`);
   console.log(`Test Results: ${passed}/${total} tests passed!`);
   console.log(`========================================\n`);
