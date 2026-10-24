@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { db } from '../server/db';
 import { hashPassword, verifyPassword, generateToken, verifyToken } from '../server/auth';
 
