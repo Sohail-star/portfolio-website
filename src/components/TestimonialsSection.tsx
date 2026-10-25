@@ -171,7 +171,7 @@ export const TestimonialsSection: React.FC = () => {
             {testimonials.map((item) => (
               <div
                 key={item.id}
-                className="p-4 sm:p-6 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/50 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1 shadow-lg shadow-black/40 group min-w-0"
+                className="p-4 sm:p-6 rounded-2xl bg-[#06162D] border border-[#008CFF]/20 hover:border-[#00CFFF]/50 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1 shadow-lg shadow-[#008CFF]/10 group min-w-0"
               >
                 <div className="space-y-2.5 sm:space-y-3 min-w-0">
                   <div className="flex items-center justify-between">

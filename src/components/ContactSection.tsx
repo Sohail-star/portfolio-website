@@ -83,10 +83,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
     : null;
 
   return (
-    <section id="contact" className="py-14 sm:py-16 md:py-28 relative bg-[#020B1B] overflow-hidden w-full isolate">
-      {/* Decorative gradient glow contained within viewport */}
-      <div className="absolute bottom-10 left-0 w-56 sm:w-96 h-56 sm:h-96 bg-[#008CFF]/10 rounded-full blur-[80px] sm:blur-[140px] pointer-events-none z-0 max-w-full" />
-
+    <section
+      id="contact"
+      className="py-14 sm:py-16 md:py-28 relative bg-[#020B1B] bg-[radial-gradient(ellipse_at_bottom_left,_rgba(0,140,255,0.10)_0%,_rgba(2,11,27,0)_65%)] overflow-hidden w-full isolate"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12">
           {/* Left Column: Contact Info & Value Proposition */}
@@ -190,7 +190,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile, prefill
 
           {/* Right Column: Full-Stack Contact Form */}
           <div className="lg:col-span-7 min-w-0">
-            <div className="p-4 sm:p-8 rounded-2xl bg-[#06162D] border border-[#008CFF]/30 shadow-2xl shadow-black/40 relative min-w-0">
+            <div className="p-4 sm:p-8 rounded-2xl bg-[#06162D] border border-[#008CFF]/30 shadow-xl shadow-[#008CFF]/10 relative min-w-0">
               {/* Feedback messages */}
               {successMessage && (
                 <div className="mb-6 p-4 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-sm flex items-start gap-3 animate-fade-in">

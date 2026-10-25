@@ -105,7 +105,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, projectsCou
 
           {/* Right Column: Wide Showcase Card with Developer Stats & Highlights */}
           <div className="lg:col-span-5 min-w-0">
-            <div className="relative rounded-2xl overflow-hidden bg-[#06162D] border border-[#008CFF]/30 shadow-2xl shadow-black/60 group p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 min-w-0">
+            <div className="relative rounded-2xl overflow-hidden bg-[#06162D] border border-[#008CFF]/30 shadow-xl shadow-[#008CFF]/10 group p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 min-w-0">
               {/* Top Accent Pill - Responsive flex-wrap */}
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <span className="px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[#0B1F3F] border border-[#008CFF]/30 text-[#00CFFF] max-w-full truncate">

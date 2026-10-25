@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Mail, Github, Linkedin, MessageCircle, Terminal, Code2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Mail, Github, Linkedin, MessageCircle } from 'lucide-react';
 import { ProfileInfo } from '../types';
 
 interface HeroSectionProps {
@@ -19,17 +19,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
     : '#contact';
 
   return (
-    <section id="home" className="relative pt-24 pb-14 sm:pt-28 sm:pb-16 md:pt-40 md:pb-28 overflow-hidden w-full isolate">
-      {/* Background radial glow accents (contained within viewport) */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[450px] md:w-[600px] h-[240px] sm:h-[450px] md:h-[600px] bg-[#008CFF]/10 rounded-full blur-[80px] sm:blur-[140px] pointer-events-none z-0 max-w-full" />
-      <div className="absolute top-1/3 right-0 w-[180px] sm:w-[320px] md:w-[400px] h-[180px] sm:h-[320px] md:h-[400px] bg-[#00CFFF]/10 rounded-full blur-[70px] sm:blur-[120px] pointer-events-none z-0 max-w-full" />
-
+    <section
+      id="home"
+      className="relative pt-24 pb-14 sm:pt-28 sm:pb-16 md:pt-36 md:pb-28 overflow-hidden w-full isolate bg-[radial-gradient(ellipse_at_top,_rgba(0,140,255,0.12)_0%,_rgba(2,11,27,0)_70%)]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 items-center">
           {/* Left Column: Text Hierarchy */}
           <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left min-w-0">
-            {/* Greeting pill */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#06162D] border border-[#008CFF]/30 text-xs sm:text-sm font-medium text-[#00CFFF] shadow-sm">
+            {/* Greeting badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#06162D] border border-[#008CFF]/30 text-xs sm:text-sm font-medium text-[#00CFFF] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#00CFFF] animate-pulse" />
               <span>Hello, I&apos;m</span>
             </div>
@@ -45,7 +44,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
             </div>
 
             {/* Description */}
-            <p className="text-xs sm:text-base md:text-lg text-[#A9B9D0] max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base md:text-lg text-[#A9B9D0] max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
               I&apos;m a Software Engineering student and passionate web developer, graphic designer and problem solver. I build modern websites and digital experiences that make an impact.
             </p>
 
@@ -75,7 +74,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub (Sohail-star)"
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-white hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-white hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
                 aria-label="GitHub Profile"
               >
                 <Github className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
@@ -86,7 +85,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn (Muhammad Sohail)"
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-[#0A66C2] hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-[#0A66C2] flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-[#0A66C2] hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-[#0A66C2] flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
@@ -97,7 +96,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="WhatsApp (03285490043)"
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-[#25D366] hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-[#25D366] flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#06162D] border border-[#008CFF]/25 hover:border-[#25D366] hover:bg-[#0B1F3F] text-[#A9B9D0] hover:text-[#25D366] flex items-center justify-center transition-all hover:scale-110 shadow-sm group"
                 aria-label="Chat on WhatsApp"
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
@@ -107,38 +106,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
 
           {/* Right Column: User Uploaded Portrait Photo */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center relative w-full min-w-0">
-            <div className="relative w-full max-w-[260px] xs:max-w-[280px] sm:max-w-md mx-auto aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#008CFF]/50 hover:border-[#00CFFF] shadow-2xl shadow-[#008CFF]/25 hover:shadow-[#00CFFF]/40 transition-all duration-500 group/photo bg-[#06162D]">
-              {/* Outer decorative ambient glow contained */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#008CFF]/20 via-[#00CFFF]/10 to-transparent rounded-2xl sm:rounded-3xl blur-md pointer-events-none" />
-
+            <div className="relative w-full max-w-[270px] sm:max-w-sm md:max-w-md mx-auto aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#008CFF]/50 hover:border-[#00CFFF] shadow-xl shadow-[#008CFF]/20 transition-all duration-500 group/photo bg-[#06162D]">
               {/* Portrait Image */}
               <img
                 src={profile.portraitUrl || '/images/31.jpg'}
                 alt="Muhammad Sohail - Web Developer"
-                className="w-full h-full object-cover object-center group-hover/photo:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover object-top group-hover/photo:scale-105 transition-transform duration-700"
                 loading="eager"
                 onError={(e) => {
                   e.currentTarget.src = '/images/31.jpg';
                 }}
               />
 
-              {/* Subtle cinematic gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020B1B]/95 via-black/20 to-black/10 pointer-events-none" />
+              {/* Subtle bottom-only gradient overlay for card contrast */}
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#020B1B]/90 to-transparent pointer-events-none" />
 
               {/* Top Floating Badge: Status & Tech */}
-              <div className="absolute top-2.5 left-2.5 right-2.5 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between gap-1.5 z-10 min-w-0">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#020B1B]/85 backdrop-blur-md border border-[#008CFF]/40 text-[10px] sm:text-xs font-semibold text-[#F8FAFC] shadow-lg min-w-0">
+              <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between gap-1.5 z-10 min-w-0">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#020B1B]/90 border border-[#008CFF]/40 text-[10px] sm:text-xs font-semibold text-[#F8FAFC] shadow-md min-w-0">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="truncate">Available for Hire</span>
                 </div>
 
-                <div className="px-2 py-0.5 rounded-full bg-[#06162D]/90 backdrop-blur-md border border-[#00CFFF]/40 text-[10px] sm:text-[11px] font-mono text-[#00CFFF] font-semibold shrink-0">
+                <div className="px-2.5 py-0.5 rounded-full bg-[#06162D]/95 border border-[#00CFFF]/40 text-[10px] sm:text-[11px] font-mono text-[#00CFFF] font-semibold shrink-0">
                   Full-Stack
                 </div>
               </div>
 
-              {/* Bottom Floating Glass Card with Title & Tagline */}
-              <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-4 sm:left-4 sm:right-4 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#06162D]/95 backdrop-blur-md border border-[#008CFF]/40 shadow-xl z-10 space-y-1 sm:space-y-2 min-w-0">
+              {/* Bottom Floating Card with Title & Tagline */}
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#06162D]/95 border border-[#008CFF]/40 shadow-lg z-10 space-y-1.5 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
                     <h3 className="font-extrabold text-xs sm:text-base md:text-lg text-[#F8FAFC] tracking-tight truncate">
@@ -166,4 +162,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
     </section>
   );
 };
-
