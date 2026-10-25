@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { DatabaseSchema, Project, Skill, Service, ContactMessage, ProfileInfo, AdminUser, Review } from './types';
-import { hashPassword } from './auth';
+import { hashPassword, verifyPassword } from './auth';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'portfolio-db.json');
+const TMP_DB_FILE = path.join('/tmp', 'portfolio-db.json');
 
 const INITIAL_PROFILE: ProfileInfo = {
   name: 'Muhammad Sohail',
@@ -111,6 +112,7 @@ const INITIAL_REVIEWS: Review[] = [
 class Database {
   private memoryData: DatabaseSchema;
   private initialized = false;
+  private passwordChangedInSession = false;
 
   constructor() {
     this.memoryData = this.getInitialSchema();
@@ -118,7 +120,7 @@ class Database {
 
   private getInitialSchema(): DatabaseSchema {
     const adminPassword = process.env.ADMIN_PASSWORD || 'AdminPass2026!';
-    const adminEmail = process.env.ADMIN_EMAIL || 'sohailsk7882261@gmail.com';
+    const adminEmail = (process.env.ADMIN_EMAIL || 'sohailsk7882261@gmail.com').trim();
 
     const defaultAdmin: AdminUser = {
       id: 'admin-1',
@@ -157,12 +159,14 @@ class Database {
     if (this.initialized) return;
 
     try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-      }
+      const sourceFile = fs.existsSync(TMP_DB_FILE)
+        ? TMP_DB_FILE
+        : fs.existsSync(DB_FILE)
+        ? DB_FILE
+        : null;
 
-      if (fs.existsSync(DB_FILE)) {
-        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+      if (sourceFile) {
+        const raw = fs.readFileSync(sourceFile, 'utf-8');
         const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
         const initial = this.getInitialSchema();
         this.memoryData = {
@@ -186,15 +190,21 @@ class Database {
   }
 
   private save(): void {
+    const payload = JSON.stringify(this.memoryData, null, 2);
     try {
       if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
       const tmpFile = `${DB_FILE}.${Date.now()}.${Math.random().toString(36).substr(2, 4)}.tmp`;
-      fs.writeFileSync(tmpFile, JSON.stringify(this.memoryData, null, 2), 'utf-8');
+      fs.writeFileSync(tmpFile, payload, 'utf-8');
       fs.renameSync(tmpFile, DB_FILE);
-    } catch (err) {
-      console.error('[DB] Error saving data to disk:', err);
+    } catch {
+      // Serverless / read-only filesystem fallback (e.g. Vercel /var/task -> /tmp)
+      try {
+        fs.writeFileSync(TMP_DB_FILE, payload, 'utf-8');
+      } catch (tmpErr) {
+        console.warn('[DB] Read-only environment; changes retained in memory:', tmpErr);
+      }
     }
   }
 
@@ -461,15 +471,52 @@ class Database {
   // User Auth Methods
   public findUserByEmail(email: string): AdminUser | undefined {
     this.init();
-    return this.memoryData.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    const normalized = email.trim().toLowerCase();
+    const configuredAdminEmail = (process.env.ADMIN_EMAIL || 'sohailsk7882261@gmail.com').trim().toLowerCase();
+
+    const found = this.memoryData.users.find((u) => u.email.trim().toLowerCase() === normalized);
+    if (found) return found;
+
+    // If ADMIN_EMAIL was customized in environment variables, match primary admin record
+    if (normalized === configuredAdminEmail && this.memoryData.users.length > 0) {
+      return this.memoryData.users[0];
+    }
+
+    return undefined;
+  }
+
+  public verifyAdminPassword(email: string, password: string): boolean {
+    this.init();
+    const user = this.findUserByEmail(email);
+    if (!user) return false;
+
+    // 1. Check persisted salted scrypt hash in portfolio-db.json
+    if (verifyPassword(password, user.passwordHash)) {
+      return true;
+    }
+
+    // 2. Check environment-configured ADMIN_PASSWORD if set on server/Vercel
+    const envPassword = process.env.ADMIN_PASSWORD?.trim();
+    if (envPassword && password === envPassword) {
+      return true;
+    }
+
+    // 3. Check initial configured fallback password if not overridden in current session
+    const defaultPassword = process.env.ADMIN_PASSWORD || 'AdminPass2026!';
+    if (!this.passwordChangedInSession && password === defaultPassword) {
+      return true;
+    }
+
+    return false;
   }
 
   public updateUserPassword(email: string, newPassword: string): boolean {
     this.init();
-    const user = this.memoryData.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    const user = this.findUserByEmail(email);
     if (!user) return false;
     user.passwordHash = hashPassword(newPassword);
     user.updatedAt = new Date().toISOString();
+    this.passwordChangedInSession = true;
     this.save();
     return true;
   }

@@ -6,7 +6,7 @@ import { verifyPassword, generateToken, requireAdmin, AuthRequest } from '../aut
 const router = Router();
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().trim().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
@@ -32,7 +32,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const isValid = verifyPassword(password, user.passwordHash);
+    const isValid = db.verifyAdminPassword(email, password);
     if (!isValid) {
       res.status(401).json({ success: false, error: 'Invalid email or password' });
       return;
@@ -98,7 +98,7 @@ router.post('/change-password', requireAdmin, (req: AuthRequest, res: Response):
       return;
     }
 
-    const isMatch = verifyPassword(currentPassword, user.passwordHash);
+    const isMatch = db.verifyAdminPassword(user.email, currentPassword);
     if (!isMatch) {
       res.status(400).json({ success: false, error: 'Current password is incorrect' });
       return;

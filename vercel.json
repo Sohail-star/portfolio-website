@@ -3,12 +3,24 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
       "source": "/downloads/Mohammad_Sohail_Resume.pdf",
       "destination": "/api/cv/download"
+    },
+    {
+      "source": "/api/contact",
+      "destination": "/api/contact"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/api/cv/download",
+      "destination": "/api/cv/download"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index?__path=$1"
     },
     {
       "source": "/(.*)",

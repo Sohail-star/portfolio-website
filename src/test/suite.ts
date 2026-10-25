@@ -137,6 +137,66 @@ async function runTests() {
   const testmTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/TestimonialsSection.tsx'), 'utf-8');
   assert(testmTsx.includes('min-w-0 flex-1'), 'TestimonialsSection applies min-w-0 flex-1 to prevent role/name overflow');
 
+  // 9. End-to-End Admin Login API & Vercel Serverless Handler Tests
+  console.log('\n8. Admin Login API & Serverless Routing Tests:');
+  const http = await import('http');
+  const serverlessHandler = (await import('../../api/index')).default;
+  const server = http.createServer((req, res) => serverlessHandler(req, res));
+
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', () => resolve()));
+  const address = server.address() as { port: number };
+  const baseUrl = `http://127.0.0.1:${address.port}`;
+
+  try {
+    // Test 1: Login via Vercel rewritten URL (/api/index?__path=auth/login) with configured admin email
+    const loginRes = await fetch(`${baseUrl}/api/index?__path=auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: 'Sohailsk7882261@gmail.com',
+        password: process.env.ADMIN_PASSWORD || 'AdminPass2026!',
+      }),
+    });
+    const loginContentType = loginRes.headers.get('content-type') || '';
+    assert(loginContentType.includes('application/json'), 'Login endpoint returns application/json content-type');
+    const loginJson = await loginRes.json();
+    assert(loginRes.status === 200 && loginJson.success === true && Boolean(loginJson.token), 'Admin login succeeds and returns JWT token');
+
+    // Test 2: Verify /api/auth/me with returned Bearer token
+    const meRes = await fetch(`${baseUrl}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${loginJson.token}` },
+    });
+    const meJson = await meRes.json();
+    assert(meRes.status === 200 && meJson.success === true && meJson.user?.email === 'sohailsk7882261@gmail.com', 'Authenticated /api/auth/me returns admin user profile');
+
+    // Test 3: Verify /api/contact/admin/stats works through serverless handler
+    const statsRes = await fetch(`${baseUrl}/api/index?__path=contact/admin/stats`, {
+      headers: { Authorization: `Bearer ${loginJson.token}` },
+    });
+    const statsJson = await statsRes.json();
+    assert(statsRes.status === 200 && statsJson.success === true && typeof statsJson.data?.totalMessages === 'number', 'Protected /api/contact/admin/stats returns dashboard metrics');
+
+    // Test 4: Reject invalid password with 401 JSON
+    const badLoginRes = await fetch(`${baseUrl}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: 'sohailsk7882261@gmail.com',
+        password: 'WrongPassword999!',
+      }),
+    });
+    const badLoginJson = await badLoginRes.json();
+    assert(badLoginRes.status === 401 && badLoginJson.success === false, 'Invalid admin password returns 401 JSON error');
+
+    // Test 5: Unknown API endpoint returns 404 JSON instead of plain-text "The page..."
+    const notFoundRes = await fetch(`${baseUrl}/api/non-existent-route`);
+    const notFoundType = notFoundRes.headers.get('content-type') || '';
+    const notFoundJson = await notFoundRes.json();
+    assert(notFoundRes.status === 404 && notFoundType.includes('application/json') && notFoundJson.success === false, 'Unknown API route returns 404 JSON response');
+  } finally {
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+
   console.log(`\n========================================`);
   console.log(`Test Results: ${passed}/${total} tests passed!`);
   console.log(`========================================\n`);

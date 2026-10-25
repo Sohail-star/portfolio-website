@@ -34,16 +34,22 @@ router.post('/upload-photo', (req: Request, res: Response): void => {
       return;
     }
 
-    const buffer = Buffer.from(matches[2], 'base64');
-    const imagesDir = path.join(process.cwd(), 'public', 'images');
-    if (!fs.existsSync(imagesDir)) {
-      fs.mkdirSync(imagesDir, { recursive: true });
+    let newUrl = imageBase64;
+    try {
+      const buffer = Buffer.from(matches[2], 'base64');
+      const imagesDir = path.join(process.cwd(), 'public', 'images');
+      if (!fs.existsSync(imagesDir)) {
+        fs.mkdirSync(imagesDir, { recursive: true });
+      }
+
+      const targetPath = path.join(imagesDir, 'sohail_portrait.png');
+      fs.writeFileSync(targetPath, buffer);
+      newUrl = `/images/sohail_portrait.png?t=${Date.now()}`;
+    } catch {
+      // Serverless / read-only filesystem fallback: persist data URI directly in profile
+      newUrl = imageBase64;
     }
 
-    const targetPath = path.join(imagesDir, 'sohail_portrait.png');
-    fs.writeFileSync(targetPath, buffer);
-
-    const newUrl = `/images/sohail_portrait.png?t=${Date.now()}`;
     const updated = db.updateProfile({ portraitUrl: newUrl });
 
     res.json({ success: true, data: { portraitUrl: newUrl, profile: updated } });
@@ -59,14 +65,18 @@ router.patch('/admin', requireAdmin, (req: Request, res: Response): void => {
     if (req.body.imageBase64) {
       const matches = req.body.imageBase64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
       if (matches && matches.length === 3) {
-        const buffer = Buffer.from(matches[2], 'base64');
-        const imagesDir = path.join(process.cwd(), 'public', 'images');
-        if (!fs.existsSync(imagesDir)) {
-          fs.mkdirSync(imagesDir, { recursive: true });
+        try {
+          const buffer = Buffer.from(matches[2], 'base64');
+          const imagesDir = path.join(process.cwd(), 'public', 'images');
+          if (!fs.existsSync(imagesDir)) {
+            fs.mkdirSync(imagesDir, { recursive: true });
+          }
+          const targetPath = path.join(imagesDir, 'sohail_portrait.png');
+          fs.writeFileSync(targetPath, buffer);
+          req.body.portraitUrl = `/images/sohail_portrait.png?t=${Date.now()}`;
+        } catch {
+          req.body.portraitUrl = req.body.imageBase64;
         }
-        const targetPath = path.join(imagesDir, 'sohail_portrait.png');
-        fs.writeFileSync(targetPath, buffer);
-        req.body.portraitUrl = `/images/sohail_portrait.png?t=${Date.now()}`;
       }
       delete req.body.imageBase64;
     }

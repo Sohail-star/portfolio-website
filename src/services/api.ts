@@ -3,15 +3,22 @@ import { Project, Skill, Service, ContactMessage, ProfileInfo, AdminStats, AuthU
 const TOKEN_KEY = 'sohail_admin_jwt';
 
 // Safe JSON fetch wrapper that guards against HTML error pages and non-JSON payloads
-async function safeJsonFetch<T = any>(url: string, options?: RequestInit): Promise<T> {
+export async function safeJsonFetch<T = any>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, options);
-  const contentType = res.headers.get('content-type') || '';
+  const contentType = (res.headers.get('content-type') || '').toLowerCase();
+  const rawText = await res.text().catch(() => '');
 
   if (!contentType.includes('application/json')) {
-    const rawText = await res.text().catch(() => '');
-    if (!res.ok) {
+    const trimmed = rawText.trim();
+    if (res.status === 404 || trimmed.startsWith('The page')) {
       throw new Error(
-        `Server error (${res.status}): ${rawText.slice(0, 140) || res.statusText}`
+        `API endpoint not found (${res.status} on ${url}). Ensure backend API routes are running and deployed.`
+      );
+    }
+    if (!res.ok) {
+      const cleanSnippet = trimmed.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140);
+      throw new Error(
+        `Server error (${res.status}): ${cleanSnippet || res.statusText || 'Unexpected server response'}`
       );
     }
     throw new Error('Server returned an unexpected non-JSON response.');
@@ -19,9 +26,11 @@ async function safeJsonFetch<T = any>(url: string, options?: RequestInit): Promi
 
   let json: any;
   try {
-    json = await res.json();
-  } catch (parseErr: any) {
-    throw new Error(parseErr?.message || 'Failed to parse JSON response from server');
+    json = rawText ? JSON.parse(rawText) : {};
+  } catch {
+    throw new Error(
+      `Invalid JSON response from server (${res.status}). Please try again.`
+    );
   }
 
   if (!res.ok || json.success === false) {
@@ -99,46 +108,40 @@ export const api = {
 
   // Auth Endpoints
   async login(email: string, password: string): Promise<{ token: string; user: AuthUser }> {
-    const res = await fetch('/api/auth/login', {
+    const json = await safeJsonFetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: email.trim(), password }),
     });
-    const json = await res.json();
-    if (!json.success) {
-      throw new Error(json.error || 'Login failed');
-    }
     this.setToken(json.token);
     return { token: json.token, user: json.user };
   },
 
   async getMe(): Promise<AuthUser> {
-    const res = await fetch('/api/auth/me', {
-      headers: this.getAuthHeaders(),
-    });
-    const json = await res.json();
-    if (!json.success) {
+    try {
+      const json = await safeJsonFetch('/api/auth/me', {
+        headers: this.getAuthHeaders(),
+      });
+      return json.user;
+    } catch (err) {
       this.removeToken();
-      throw new Error(json.error || 'Not authenticated');
+      throw err;
     }
-    return json.user;
   },
 
   async changePassword(currentPassword: string, newPassword: string): Promise<string> {
-    const res = await fetch('/api/auth/change-password', {
+    const json = await safeJsonFetch('/api/auth/change-password', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: JSON.stringify({ currentPassword, newPassword }),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to change password');
     return json.message;
   },
 
   async logout(): Promise<void> {
     this.removeToken();
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await safeJsonFetch('/api/auth/logout', { method: 'POST' });
     } catch {
       // ignore
     }
@@ -146,11 +149,9 @@ export const api = {
 
   // Admin Endpoints
   async getAdminStats(): Promise<AdminStats> {
-    const res = await fetch('/api/contact/admin/stats', {
+    const json = await safeJsonFetch('/api/contact/admin/stats', {
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch admin stats');
     return json.data;
   },
 
@@ -159,132 +160,106 @@ export const api = {
     if (status) params.append('status', status);
     if (search) params.append('search', search);
 
-    const res = await fetch(`/api/contact/admin?${params.toString()}`, {
+    const json = await safeJsonFetch(`/api/contact/admin?${params.toString()}`, {
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch messages');
     return json.data;
   },
 
   async updateMessageStatus(id: string, status: 'new' | 'read' | 'replied'): Promise<ContactMessage> {
-    const res = await fetch(`/api/contact/admin/${id}`, {
+    const json = await safeJsonFetch(`/api/contact/admin/${id}`, {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
       body: JSON.stringify({ status }),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to update message');
     return json.data;
   },
 
   async deleteMessage(id: string): Promise<void> {
-    const res = await fetch(`/api/contact/admin/${id}`, {
+    await safeJsonFetch(`/api/contact/admin/${id}`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to delete message');
   },
 
   async getAdminProjects(): Promise<Project[]> {
-    const res = await fetch('/api/projects/admin/all', {
+    const json = await safeJsonFetch('/api/projects/admin/all', {
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch all projects');
     return json.data;
   },
 
   async createProject(project: Partial<Project>): Promise<Project> {
-    const res = await fetch('/api/projects/admin', {
+    const json = await safeJsonFetch('/api/projects/admin', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(project),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to create project');
     return json.data;
   },
 
   async updateProject(id: string, updates: Partial<Project>): Promise<Project> {
-    const res = await fetch(`/api/projects/admin/${id}`, {
+    const json = await safeJsonFetch(`/api/projects/admin/${id}`, {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updates),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to update project');
     return json.data;
   },
 
   async deleteProject(id: string): Promise<void> {
-    const res = await fetch(`/api/projects/admin/${id}`, {
+    await safeJsonFetch(`/api/projects/admin/${id}`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to delete project');
   },
 
   async updateProfile(updates: Partial<ProfileInfo>): Promise<ProfileInfo> {
-    const res = await fetch('/api/profile/admin', {
+    const json = await safeJsonFetch('/api/profile/admin', {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updates),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to update profile');
     return json.data;
   },
 
   async uploadPhoto(imageBase64: string): Promise<string> {
-    const res = await fetch('/api/profile/upload-photo', {
+    const json = await safeJsonFetch('/api/profile/upload-photo', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.getAuthHeaders(),
       body: JSON.stringify({ imageBase64 }),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to upload photo');
     return json.data.portraitUrl;
   },
 
   async createSkill(skill: Partial<Skill>): Promise<Skill> {
-    const res = await fetch('/api/skills/admin', {
+    const json = await safeJsonFetch('/api/skills/admin', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(skill),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to create skill');
     return json.data;
   },
 
   async updateSkill(id: string, updates: Partial<Skill>): Promise<Skill> {
-    const res = await fetch(`/api/skills/admin/${id}`, {
+    const json = await safeJsonFetch(`/api/skills/admin/${id}`, {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updates),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to update skill');
     return json.data;
   },
 
   async deleteSkill(id: string): Promise<void> {
-    const res = await fetch(`/api/skills/admin/${id}`, {
+    await safeJsonFetch(`/api/skills/admin/${id}`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to delete skill');
   },
 
   // Public Review Endpoints
   async getReviews(): Promise<Review[]> {
-    const res = await fetch('/api/reviews');
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch reviews');
+    const json = await safeJsonFetch('/api/reviews');
     return json.data;
   },
 
@@ -294,13 +269,11 @@ export const api = {
     quote: string;
     rating: number;
   }): Promise<Review> {
-    const res = await fetch('/api/reviews', {
+    const json = await safeJsonFetch('/api/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(review),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to submit review');
     return json.data;
   },
 
@@ -311,52 +284,42 @@ export const api = {
     if (rating) params.append('rating', rating.toString());
     if (status && status !== 'all') params.append('status', status);
 
-    const res = await fetch(`/api/reviews/admin/all?${params.toString()}`, {
+    const json = await safeJsonFetch(`/api/reviews/admin/all?${params.toString()}`, {
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to fetch admin reviews');
     return json.data;
   },
 
   async createAdminReview(review: Partial<Review>): Promise<Review> {
-    const res = await fetch('/api/reviews/admin', {
+    const json = await safeJsonFetch('/api/reviews/admin', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(review),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to create review');
     return json.data;
   },
 
   async updateAdminReview(id: string, updates: Partial<Review>): Promise<Review> {
-    const res = await fetch(`/api/reviews/admin/${id}`, {
+    const json = await safeJsonFetch(`/api/reviews/admin/${id}`, {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updates),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to update review');
     return json.data;
   },
 
   async togglePublishReview(id: string): Promise<Review> {
-    const res = await fetch(`/api/reviews/admin/${id}/toggle-publish`, {
+    const json = await safeJsonFetch(`/api/reviews/admin/${id}/toggle-publish`, {
       method: 'PATCH',
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to toggle publish status');
     return json.data;
   },
 
   async deleteAdminReview(id: string): Promise<void> {
-    const res = await fetch(`/api/reviews/admin/${id}`, {
+    await safeJsonFetch(`/api/reviews/admin/${id}`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(),
     });
-    const json = await res.json();
-    if (!json.success) throw new Error(json.error || 'Failed to delete review');
   },
 };

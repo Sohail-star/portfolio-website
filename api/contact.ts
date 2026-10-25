@@ -1,5 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { Resend } from 'resend';
+import { db } from '../src/server/db';
+import { apiApp } from '../src/server/app';
 
 interface VercelRequest extends IncomingMessage {
   body?: any;
@@ -50,11 +52,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  if (req.method !== 'POST') {
-    return sendJsonResponse(res, 405, {
-      success: false,
-      error: `Method ${req.method} not allowed. Please use POST.`,
-    });
+  // Delegate admin contact endpoints (/api/contact/admin/*) or non-POST requests to unified Express API app
+  if (req.url?.includes('/admin') || req.method !== 'POST') {
+    if (req.url && !req.url.startsWith('/api')) {
+      req.url = `/api/contact${req.url.startsWith('/') ? '' : '/'}${req.url}`;
+    }
+    return apiApp(req as any, res as any);
   }
 
   try {
@@ -301,15 +304,26 @@ Delivered to: ${recipientEmail}
       });
     }
 
+    const savedMessage = db.createMessage({
+      name: trimmedName,
+      email: trimmedEmail,
+      phone: trimmedPhone,
+      subject: trimmedSubject,
+      message: trimmedMessage,
+      ipAddress: clientIp,
+      emailSent: true,
+    });
+
     console.log(`[Vercel Serverless Contact] Successfully sent email. ID: ${resendData?.id}`);
 
     return sendJsonResponse(res, 201, {
       success: true,
       message: 'Thank you! Your message has been sent successfully to Mohammad Sohail.',
       data: {
-        id: resendData?.id,
+        id: savedMessage.id,
+        messageId: resendData?.id,
         recipient: recipientEmail,
-        createdAt: new Date().toISOString(),
+        createdAt: savedMessage.createdAt,
       },
     });
   } catch (err: any) {
