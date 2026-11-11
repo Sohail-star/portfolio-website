@@ -63,7 +63,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       }
     }
 
-    // 1. Dispatch email notification via Resend
+    // 1. Dispatch email notification via Resend (gracefully falls back to Admin Dashboard inbox if RESEND_API_KEY is not set)
     const emailResult = await sendContactNotification({
       name,
       email,
@@ -75,17 +75,10 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     });
 
     if (!emailResult.success) {
-      console.error('[Contact Submission] Email delivery failed:', emailResult.error);
-      res.status(502).json({
-        success: false,
-        error:
-          emailResult.error ||
-          'Email delivery failed. Please verify your message details or email directly at sohailsk7882261@gmail.com.',
-      });
-      return;
+      console.warn('[Contact Submission] Email notification warning (message will still be saved to Admin Dashboard):', emailResult.error);
     }
 
-    // 2. Persist message in database
+    // 2. Persist message in database so it always appears in Admin Dashboard -> Messages
     const savedMessage = db.createMessage({
       name,
       email,
@@ -93,7 +86,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       subject,
       message,
       ipAddress: clientIp,
-      emailSent: true,
+      emailSent: emailResult.success && emailResult.provider === 'resend',
     });
 
     res.status(201).json({

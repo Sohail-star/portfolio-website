@@ -171,13 +171,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const senderEmail = process.env.RESEND_FROM_EMAIL || 'Portfolio Contact <onboarding@resend.dev>';
     const resendApiKey = process.env.RESEND_API_KEY?.trim();
 
+    // If RESEND_API_KEY is not configured, save directly to Admin Dashboard inbox and return success
     if (!resendApiKey) {
-      const configErrMsg =
-        'RESEND_API_KEY is not configured in Vercel Environment Variables. Please go to Vercel Project Settings -> Environment Variables, add RESEND_API_KEY, and redeploy.';
-      console.error(`[Vercel Serverless Contact] ${configErrMsg}`);
-      return sendJsonResponse(res, 503, {
-        success: false,
-        error: configErrMsg,
+      const savedMessage = db.createMessage({
+        name: trimmedName,
+        email: trimmedEmail,
+        phone: trimmedPhone,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        ipAddress: clientIp,
+        emailSent: false,
+      });
+
+      console.info(
+        `[Vercel Serverless Contact] RESEND_API_KEY not set. Saved inquiry ${savedMessage.id} directly to Admin Dashboard.`
+      );
+
+      return sendJsonResponse(res, 201, {
+        success: true,
+        message: 'Thank you! Your message has been sent successfully to Mohammad Sohail.',
+        data: {
+          id: savedMessage.id,
+          recipient: recipientEmail,
+          createdAt: savedMessage.createdAt,
+        },
       });
     }
 
@@ -283,25 +300,28 @@ Reply directly to this email to respond to ${trimmedName} (${trimmedEmail}).
 Delivered to: ${recipientEmail}
     `.trim();
 
-    // 8. Dispatch via Resend
-    const resend = new Resend(resendApiKey);
-
-    const { data: resendData, error: resendError } = await resend.emails.send({
-      from: senderEmail,
-      to: [recipientEmail],
-      replyTo: trimmedEmail,
-      subject: `Portfolio Inquiry: ${trimmedSubject} (from ${trimmedName})`,
-      html: htmlContent,
-      text: textContent,
-    });
-
-    if (resendError) {
-      console.error('[Resend Error]', resendError);
-      return sendJsonResponse(res, 502, {
-        success: false,
-        error: `Email delivery failed: ${resendError.message || 'Resend rejected the submission'}`,
-        details: resendError,
+    // 8. Dispatch via Resend (non-blocking fallback if Resend returns error)
+    let resendMessageId: string | undefined;
+    let emailDelivered = false;
+    try {
+      const resend = new Resend(resendApiKey);
+      const { data: resendData, error: resendError } = await resend.emails.send({
+        from: senderEmail,
+        to: [recipientEmail],
+        replyTo: trimmedEmail,
+        subject: `Portfolio Inquiry: ${trimmedSubject} (from ${trimmedName})`,
+        html: htmlContent,
+        text: textContent,
       });
+
+      if (resendError) {
+        console.warn('[Resend Warning - message still saved to Admin Dashboard]', resendError);
+      } else {
+        emailDelivered = true;
+        resendMessageId = resendData?.id;
+      }
+    } catch (emailErr) {
+      console.warn('[Resend Exception - message still saved to Admin Dashboard]', emailErr);
     }
 
     const savedMessage = db.createMessage({
@@ -311,17 +331,15 @@ Delivered to: ${recipientEmail}
       subject: trimmedSubject,
       message: trimmedMessage,
       ipAddress: clientIp,
-      emailSent: true,
+      emailSent: emailDelivered,
     });
-
-    console.log(`[Vercel Serverless Contact] Successfully sent email. ID: ${resendData?.id}`);
 
     return sendJsonResponse(res, 201, {
       success: true,
       message: 'Thank you! Your message has been sent successfully to Mohammad Sohail.',
       data: {
         id: savedMessage.id,
-        messageId: resendData?.id,
+        messageId: resendMessageId,
         recipient: recipientEmail,
         createdAt: savedMessage.createdAt,
       },

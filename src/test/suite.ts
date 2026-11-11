@@ -193,6 +193,27 @@ async function runTests() {
     const notFoundType = notFoundRes.headers.get('content-type') || '';
     const notFoundJson = await notFoundRes.json();
     assert(notFoundRes.status === 404 && notFoundType.includes('application/json') && notFoundJson.success === false, 'Unknown API route returns 404 JSON response');
+
+    // Test 6: Client contact form submission succeeds with 201 and saves to Admin Dashboard even when RESEND_API_KEY is not set
+    const contactRes = await fetch(`${baseUrl}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Bilal Ahmed',
+        email: 'bilal.client@example.com',
+        phone: '+92 300 1234567',
+        subject: 'E-Commerce Website Development',
+        message: 'Assalam o Alaikum Sohail, I want to build an e-commerce store for my brand.',
+      }),
+    });
+    const contactJson = await contactRes.json();
+    assert(
+      contactRes.status === 201 && contactJson.success === true && Boolean(contactJson.data?.id),
+      'Client contact form submission returns 201 Created and saves inquiry to Admin Dashboard without RESEND_API_KEY error'
+    );
+    if (contactJson.data?.id) {
+      db.deleteMessage(contactJson.data.id);
+    }
   } finally {
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
